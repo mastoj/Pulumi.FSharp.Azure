@@ -263,39 +263,61 @@ type K8sGenerator() =
         member __.Generate(namespace', _) =
             let provider = PulumiProvider.GetSample()
             
-            let moduleWithType (ns, typeName, properties, nameAndType, (serviceProvider: string)) =
-                let [| _; version |] = serviceProvider.Split(".")
+            let moduleWithType (ns, typeName, properties, nameAndType, (fullServiceProvider: string)) =
+                let [|serviceProvider; version|] = fullServiceProvider.Split(".")
                 let moduleName = typeName
-                version, (moduleName, [
+                (serviceProvider, version), (moduleName, [
                     createModule (moduleName) [
                         createOpen ns
-                        createOpen (sprintf "Pulumi.Kubernetes.Types.Inputs.%s" serviceProvider)
+                        createOpen (sprintf "Pulumi.Kubernetes.Types.Inputs.%s" fullServiceProvider)
                         createAzureBuilderClass typeName (properties |> Array.map (nameAndType))
                         createLet (toSnakeCase typeName) (createInstance (typeName + "Builder") SynExpr.CreateUnit)             
                     ]
                 ])
             
-            let concatModules parentModule modules =
-                createModule parentModule (modules |> List.concat |> List.ofSeq)
+            let concatModules (moduleName: string) modules =
+                createModule moduleName (modules |> List.concat)
+
+            let typesToIgnore = [
+                "ControllerRevision"
+            ]
 
             let modules =
                 provider.Resources.JsonValue.Properties()
-                |> Array.map (createType provider >> moduleWithType)
-                |> Array.groupBy fst
-                |> Array.map (fun (parentModule, groupedModules) ->
-                    let distinctModules = groupedModules |> Array.distinctBy fst
-                    let modules = distinctModules |> Array.map (snd >> snd)
-                    concatModules parentModule (modules))
+                |> Array.map (createType provider)
+                |> Array.filter (fun (_, typeName, _, _, _) -> 
+                    List.contains typeName typesToIgnore |> not
+                    )
+                |> Array.map moduleWithType
+                |> Array.groupBy (fst >> fst)
+                |> Array.map (fun (serviceProvider, grouped) ->
+                    let innerModules =
+                        grouped
+                        |> Array.groupBy (fst >> snd)
+                        |> Array.map (fun (version, groupedModules) ->
+                            let modules = groupedModules |> Array.map (snd >> snd)
+                            concatModules version (modules)                    
+                        )
+                        |> List.ofArray
+                    createModule serviceProvider innerModules)
                 |> List.ofArray
+
+// module ServiceProvider =
+//     module Version =
+//         module TypeX
+//         module TypeY
+//     module Version2 =
+//         module TypeX
+//         module TypeZ
 
             let namespacesToOpen = 
                 [
                     "Pulumi.FSharp"
-                    "Pulumi.FSharp.Kubernetes.Core"
-                    "Pulumi.Kubernetes"
+                    "Pulumi.FSharp.Kubernetes"
+                    // "Pulumi.Kubernetes"
                     // "Pulumi.Kubernetes.Types.Inputs.AdmissionRegistration.V1"
-                    "Pulumi.Kubernetes.Apps.V1"
-                    "Pulumi.Kubernetes.Core.V1"
+                    // "Pulumi.Kubernetes.Apps.V1"
+                    // "Pulumi.Kubernetes.Core.V1"
                     // "Pulumi.Kubernetes.Types.Inputs.Apps.V1"
                     // "Pulumi.Kubernetes.Types.Inputs.AuditRegistraion.V1Alpha1"
                     // "Pulumi.Kubernetes.Types.Inputs.Core.V1"
