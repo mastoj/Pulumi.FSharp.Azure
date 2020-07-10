@@ -1,8 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Pulumi.FSharp.Azure", "Pulumi.FSharp.Azure.fsproj", "{152C53D3-587D-4232-92A2-FDC1E0FB4A68}"
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Pulumi.FSharp.Kubernetes", "src\Pulumi.FSharp.Kubernetes\Pulumi.FSharp.Kubernetes.fsproj", "{152C53D3-587D-4232-92A2-FDC1E0FB4A68}"
 EndProject
-Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Pulumi.FSharp.Azure.Myriad", "Pulumi.FSharp.Azure.Myriad\Pulumi.FSharp.Azure.Myriad.fsproj", "{EDDFE9E5-9B82-4ECF-AB23-86F3347D77EC}"
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Pulumi.FSharp.Kubernetes.Myriad", "src\Pulumi.FSharp.Kubernetes.Myriad\Pulumi.FSharp.Kubernetes.Myriad.fsproj", "{EDDFE9E5-9B82-4ECF-AB23-86F3347D77EC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

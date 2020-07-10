@@ -1,4 +1,4 @@
-﻿module Pulumi.FSharp.Azure.Myriad
+﻿module Pulumi.FSharp.Kubernetes.Myriad
 
 open System
 open FSharp.Data
@@ -259,41 +259,56 @@ let private createType (provider : PulumiProvider.Root) (fqType : string, jValue
 [<MyriadGenerator("example1")>]
 type Example1Gen() =
     interface IMyriadGenerator with
-        member __.Generate(_, _) =
-            let provider = PulumiProvider.GetSample()
+        member __.Generate(namespace', _) =
+            let let42 =
+                SynModuleDecl.CreateLet
+                    [ { SynBindingRcd.Let with
+                            Pattern = SynPatRcd.CreateLongIdent(LongIdentWithDots.CreateString "fourtyTwo", [])
+                            Expr = SynExpr.CreateConst(SynConst.Int32 42) } ]
+
+            let componentInfo = SynComponentInfoRcd.Create [ Ident.Create "example1" ]
+            let nestedModule = SynModuleDecl.CreateNestedModule(componentInfo, [ let42 ])
+
+            let namespaceOrModule =
+                { SynModuleOrNamespaceRcd.CreateNamespace(Ident.CreateLong namespace')
+                    with Declarations = [ nestedModule ] }
+
+            namespaceOrModule
+
+            // let provider = PulumiProvider.GetSample()
             
-            let moduleWithType (ns, typeName, properties, nameAndType, serviceProvider) =
-                createModule ((serviceProvider |> toPascalCase) + typeName) [
-                     createOpen ns
+            // let moduleWithType (ns, typeName, properties, nameAndType, serviceProvider) =
+            //     createModule ((serviceProvider |> toPascalCase) + typeName) [
+            //          createOpen ns
                      
-                     createAzureBuilderClass typeName (properties |> Array.map (nameAndType))
+            //          createAzureBuilderClass typeName (properties |> Array.map (nameAndType))
                      
-                     createLet (toSnakeCase (serviceProvider + typeName)) (createInstance (typeName + "Builder") SynExpr.CreateUnit)             
-                ]
+            //          createLet (toSnakeCase (serviceProvider + typeName)) (createInstance (typeName + "Builder") SynExpr.CreateUnit)             
+            //     ]
             
-            let modules =
-                provider.Resources.JsonValue.Properties() |>
-                // Filtering out the ones that I created manually, for now
-                Array.filter (fun (r, _) -> ([
-                    "azure:core/resourceGroup:ResourceGroup"
-                    "azure:appservice/plan:Plan"
-                    "azure:storage/account:Account"
-                    "azure:storage/container:Container"
-                    "azure:storage/blob:Blob"
-                    "azure:appinsights/insights:Insights"
-                    "azure:core/templateDeployment:TemplateDeployment"
-                    "azure:apimanagement/api:Api"
-                    "azure:apimanagement/apiOperation:ApiOperation"
-                    "azure:appservice/functionApp:FunctionApp"
-                ] |> List.contains r |> not)) |>
-                // Debug only
-                //Array.filter (fun (r, _) -> r = "azure:compute/virtualMachine:VirtualMachine") |>
-                Array.map (createType provider >>
-                           moduleWithType) |>
-                List.ofArray
+            // let modules =
+            //     provider.Resources.JsonValue.Properties() |>
+            //     // Filtering out the ones that I created manually, for now
+            //     Array.filter (fun (r, _) -> ([
+            //         "azure:core/resourceGroup:ResourceGroup"
+            //         "azure:appservice/plan:Plan"
+            //         "azure:storage/account:Account"
+            //         "azure:storage/container:Container"
+            //         "azure:storage/blob:Blob"
+            //         "azure:appinsights/insights:Insights"
+            //         "azure:core/templateDeployment:TemplateDeployment"
+            //         "azure:apimanagement/api:Api"
+            //         "azure:apimanagement/apiOperation:ApiOperation"
+            //         "azure:appservice/functionApp:FunctionApp"
+            //     ] |> List.contains r |> not)) |>
+            //     // Debug only
+            //     //Array.filter (fun (r, _) -> r = "azure:compute/virtualMachine:VirtualMachine") |>
+            //     Array.map (createType provider >>
+            //                moduleWithType) |>
+            //     List.ofArray
             
-            createNamespace ("Pulumi.FSharp.Kubernetes") ([
-                 createOpen "Pulumi.FSharp.Azure.Core"
-                 createOpen "Pulumi.Kubernetes.Core.V1"
-                 createOpen "Pulumi.FSharp"
-            ] @ modules)
+            // createNamespace ("Pulumi.FSharp.Kubernetes") ([
+            //      createOpen "Pulumi.FSharp.Azure.Core"
+            //      createOpen "Pulumi.Kubernetes.Core.V1"
+            //      createOpen "Pulumi.FSharp"
+            // ] @ modules)

@@ -16,32 +16,16 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <Content Include="README.md" />
-        <Content Include="NuGetBuildPublish.yml" />
         <Compile Include="OutputBuilder.fs" />
-        <Content Include="Regions.json" />
-        <Compile Include="Regions.fs" />
         <Compile Include="Core.fs" />
-        <Compile Include="ResourceGroup.fs" />
-        <Compile Include="AppService.fs" />
-        <Compile Include="StorageAccount.fs" />
-        <Compile Include="StorageContainer.fs" />
-        <Compile Include="StorageBlob.fs" />
-        <Compile Include="SasToken.fs" />
-        <Compile Include="AppInsight.fs" />
-        <Compile Include="ArmTemplate.fs" />
-        <Compile Include="ApimApi.fs" />
-        <Compile Include="ApimApiOperation.fs" />
-        <Compile Include="FunctionApp.fs" />
         <Compile Include="Library.fs" />
         <Compile Include="Generated.fs">
             <MyriadFile>Library.fs</MyriadFile>
-            <MyriadNameSpace>Pulumi.FSharp.Azure</MyriadNameSpace>
+            <MyriadNameSpace>Pulumi.FSharp.Kubernetes</MyriadNameSpace>
         </Compile>
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="Pulumi.Azure" Version="3.11.0" />
         <PackageReference Include="Pulumi.Kubernetes" Version="2.4.0" />
         <PackageReference Include="Pulumi.FSharp" Version="2.5.0" />
         <PackageReference Include="FSharp.Core" Version="4.7.2" />
@@ -49,9 +33,9 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="Pulumi.FSharp.Azure.Myriad\Pulumi.FSharp.Azure.Myriad.fsproj" PrivateAssets="All" />
+      <ProjectReference Include="..\Pulumi.FSharp.Kubernetes.Myriad\Pulumi.FSharp.Kubernetes.Myriad.fsproj" PrivateAssets="All" />
     </ItemGroup>
 
-    <Import Project="Pulumi.FSharp.Azure.Myriad\build\Pulumi.FSharp.Azure.Myriad.InTest.props" />
+    <Import Project="..\Pulumi.FSharp.Kubernetes.Myriad\build\Pulumi.FSharp.Kubernetes.Myriad.InTest.props" />
     
 </Project>

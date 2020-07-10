@@ -11,12 +11,12 @@
     </ItemGroup>
     
     <ItemGroup>
-        <Content Include="build\Pulumi.FSharp.Azure.Myriad.props">
+        <Content Include="build\Pulumi.FSharp.Kubernetes.Myriad.props">
             <Pack>true</Pack>
             <PackagePath>%(Identity)</PackagePath>
             <Visible>true</Visible>
         </Content>
-        <Content Include="build\Pulumi.FSharp.Azure.Myriad.InTest.props" />
+        <Content Include="build\Pulumi.FSharp.Kubernetes.Myriad.InTest.props" />
     </ItemGroup>
     
     <ItemGroup>
