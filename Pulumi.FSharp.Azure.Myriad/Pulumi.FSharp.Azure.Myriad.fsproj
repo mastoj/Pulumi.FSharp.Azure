@@ -25,7 +25,7 @@
         <PackageReference Include="FSharp.Data" Version="3.3.3" />
         <PackageReference Include="Myriad.Core" Version="0.2.8" />
         <PackageReference Include="Myriad.Sdk" Version="0.2.8" />
-        <PackageReference Include="Pulumi.Azure" Version="3.11.0" />
+        <PackageReference Include="Pulumi.Kubernetes" Version="2.4.0" />
     </ItemGroup>
     
 </Project>

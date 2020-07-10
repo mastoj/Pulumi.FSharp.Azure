@@ -10,7 +10,8 @@ open Myriad.Core
 // Version needs to match NuGet package
 [<Literal>]
 let private pulumiSchemaUrl =
-    "https://raw.githubusercontent.com/pulumi/pulumi-azure/v3.11.0/provider/cmd/pulumi-resource-azure/schema.json"
+    "https://raw.githubusercontent.com/pulumi/pulumi-kubernetes/master/provider/cmd/pulumi-resource-kubernetes/schema.json"
+    // "https://raw.githubusercontent.com/pulumi/pulumi-azure/v3.11.0/provider/cmd/pulumi-resource-azure/schema.json"
 
 type private PulumiProvider =
     JsonProvider<pulumiSchemaUrl>
@@ -216,21 +217,20 @@ let private createType (provider : PulumiProvider.Root) (fqType : string, jValue
         ignore
         "complex"
    
-    let [| fullProvider; fullType |] = fqType.Split("/")
-    let [| tProvider; category |] = fullProvider.Split(':')
-    let [| resourceType; _(*subtype*) |] = fullType.Split(':')
+    let [| tProvider; category; resourceType |] = fqType.Split(":")
+    // let [| fullProvider; fullType |] = fqType.Split("/")
+    // let [| tProvider; category |] = fullProvider.Split(':')
+    // let [| _(*version*); resourceType |] = fullType.Split(':')
     let typeName = toPascalCase resourceType
     let properties = jValue.GetProperty("inputProperties").Properties()
     
     let serviceProvider =
-        provider.Language.Csharp.Namespaces.JsonValue.Properties() |>
-        Array.find (fun (p, _) -> p = category) |>
-        snd |>
-        (fun jv -> jv.AsString())
+        provider.Language.Csharp.Namespaces.JsonValue.Properties() 
+        |> Array.find (fun (p, _) -> p = category)
+        |> snd 
+        |> (fun jv -> jv.AsString())
     
-    let ns =
-        serviceProvider |>
-        sprintf "Pulumi.%s.%s" (toPascalCase tProvider)
+    let ns = sprintf "Pulumi.%s.%s" (toPascalCase tProvider) serviceProvider
 
     let nameAndType (name, jValue : JsonValue) =
         let tName =
@@ -292,7 +292,8 @@ type Example1Gen() =
                            moduleWithType) |>
                 List.ofArray
             
-            createNamespace ("Pulumi.FSharp.Azure") ([
+            createNamespace ("Pulumi.FSharp.Kubernetes") ([
                  createOpen "Pulumi.FSharp.Azure.Core"
+                 createOpen "Pulumi.Kubernetes.Core.V1"
                  createOpen "Pulumi.FSharp"
             ] @ modules)
