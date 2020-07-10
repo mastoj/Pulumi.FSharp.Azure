@@ -4,5 +4,311 @@
 //------------------------------------------------------------------------------
 namespace Pulumi.FSharp.Kubernetes
 
-module example1 =
-    let fourtyTwo = 42
+open Pulumi.FSharp
+open Pulumi.FSharp.Kubernetes.Core
+open Pulumi.Kubernetes
+open Pulumi.Kubernetes.Apps.V1
+open Pulumi.Kubernetes.Core.V1
+
+module V1 =
+    module MutatingWebhookConfiguration =
+        open Pulumi.Kubernetes.AdmissionRegistration.V1
+        open Pulumi.Kubernetes.Types.Inputs.AdmissionRegistration.V1
+
+        type MutatingWebhookConfigurationBuilder() =
+            member _.Yield _ = KubernetesResource.Zero, MutatingWebhookConfigurationArgs()
+            member _.Run(cargs, args: MutatingWebhookConfigurationArgs) = MutatingWebhookConfiguration(cargs.Name, args)
+
+            [<CustomOperation("name")>]
+            member _.Name((cargs, args: MutatingWebhookConfigurationArgs), name) = { cargs with Name = name }, args
+
+            [<CustomOperation("apiVersion")>]
+            member _.ApiVersion((cargs, args: MutatingWebhookConfigurationArgs), apiVersion) =
+                args.ApiVersion <- input apiVersion
+                cargs, args
+
+            member _.ApiVersion((cargs, args: MutatingWebhookConfigurationArgs), apiVersion) =
+                args.ApiVersion <- io apiVersion
+                cargs, args
+
+            [<CustomOperation("kind")>]
+            member _.Kind((cargs, args: MutatingWebhookConfigurationArgs), kind) =
+                args.Kind <- input kind
+                cargs, args
+
+            member _.Kind((cargs, args: MutatingWebhookConfigurationArgs), kind) =
+                args.Kind <- io kind
+                cargs, args
+
+            [<CustomOperation("metadata")>]
+            member _.Metadata((cargs, args: MutatingWebhookConfigurationArgs), metadata) =
+                args.Metadata <- input metadata
+                cargs, args
+
+            [<CustomOperation("webhooks")>]
+            member _.Webhooks((cargs, args: MutatingWebhookConfigurationArgs), webhooks) =
+                args.Webhooks <- inputList webhooks
+                cargs, args
+
+        let mutatingWebhookConfiguration = MutatingWebhookConfigurationBuilder()
+
+module V1Beta1 =
+    module MutatingWebhookConfiguration =
+        open Pulumi.Kubernetes.AdmissionRegistration.V1Beta1
+        open Pulumi.Kubernetes.Types.Inputs.AdmissionRegistration.V1Beta1
+
+        type MutatingWebhookConfigurationBuilder() =
+            member _.Yield _ = KubernetesResource.Zero, MutatingWebhookConfigurationArgs()
+            member _.Run(cargs, args: MutatingWebhookConfigurationArgs) = MutatingWebhookConfiguration(cargs.Name, args)
+
+            [<CustomOperation("name")>]
+            member _.Name((cargs, args: MutatingWebhookConfigurationArgs), name) = { cargs with Name = name }, args
+
+            [<CustomOperation("apiVersion")>]
+            member _.ApiVersion((cargs, args: MutatingWebhookConfigurationArgs), apiVersion) =
+                args.ApiVersion <- input apiVersion
+                cargs, args
+
+            member _.ApiVersion((cargs, args: MutatingWebhookConfigurationArgs), apiVersion) =
+                args.ApiVersion <- io apiVersion
+                cargs, args
+
+            [<CustomOperation("kind")>]
+            member _.Kind((cargs, args: MutatingWebhookConfigurationArgs), kind) =
+                args.Kind <- input kind
+                cargs, args
+
+            member _.Kind((cargs, args: MutatingWebhookConfigurationArgs), kind) =
+                args.Kind <- io kind
+                cargs, args
+
+            [<CustomOperation("metadata")>]
+            member _.Metadata((cargs, args: MutatingWebhookConfigurationArgs), metadata) =
+                args.Metadata <- input metadata
+                cargs, args
+
+            [<CustomOperation("webhooks")>]
+            member _.Webhooks((cargs, args: MutatingWebhookConfigurationArgs), webhooks) =
+                args.Webhooks <- inputList webhooks
+                cargs, args
+
+        let mutatingWebhookConfiguration = MutatingWebhookConfigurationBuilder()
+
+module V1Beta2 =
+    module ControllerRevision =
+        open Pulumi.Kubernetes.Apps.V1Beta2
+        open Pulumi.Kubernetes.Types.Inputs.Apps.V1Beta2
+
+        type ControllerRevisionBuilder() =
+            member _.Yield _ = KubernetesResource.Zero, ControllerRevisionArgs()
+            member _.Run(cargs, args: ControllerRevisionArgs) = ControllerRevision(cargs.Name, args)
+
+            [<CustomOperation("name")>]
+            member _.Name((cargs, args: ControllerRevisionArgs), name) = { cargs with Name = name }, args
+
+            [<CustomOperation("apiVersion")>]
+            member _.ApiVersion((cargs, args: ControllerRevisionArgs), apiVersion) =
+                args.ApiVersion <- input apiVersion
+                cargs, args
+
+            member _.ApiVersion((cargs, args: ControllerRevisionArgs), apiVersion) =
+                args.ApiVersion <- io apiVersion
+                cargs, args
+
+            [<CustomOperation("data")>]
+            member _.Data((cargs, args: ControllerRevisionArgs), data) =
+                args.Data <- inputMap data
+                cargs, args
+
+            [<CustomOperation("kind")>]
+            member _.Kind((cargs, args: ControllerRevisionArgs), kind) =
+                args.Kind <- input kind
+                cargs, args
+
+            member _.Kind((cargs, args: ControllerRevisionArgs), kind) =
+                args.Kind <- io kind
+                cargs, args
+
+            [<CustomOperation("metadata")>]
+            member _.Metadata((cargs, args: ControllerRevisionArgs), metadata) =
+                args.Metadata <- input metadata
+                cargs, args
+
+            [<CustomOperation("revision")>]
+            member _.Revision((cargs, args: ControllerRevisionArgs), revision) =
+                args.Revision <- input revision
+                cargs, args
+
+            member _.Revision((cargs, args: ControllerRevisionArgs), revision) =
+                args.Revision <- io revision
+                cargs, args
+
+        let controllerRevision = ControllerRevisionBuilder()
+
+module V1Alpha1 =
+    module AuditSink =
+        open Pulumi.Kubernetes.AuditRegistraion.V1Alpha1
+        open Pulumi.Kubernetes.Types.Inputs.AuditRegistraion.V1Alpha1
+
+        type AuditSinkBuilder() =
+            member _.Yield _ = KubernetesResource.Zero, AuditSinkArgs()
+            member _.Run(cargs, args: AuditSinkArgs) = AuditSink(cargs.Name, args)
+
+            [<CustomOperation("name")>]
+            member _.Name((cargs, args: AuditSinkArgs), name) = { cargs with Name = name }, args
+
+            [<CustomOperation("apiVersion")>]
+            member _.ApiVersion((cargs, args: AuditSinkArgs), apiVersion) =
+                args.ApiVersion <- input apiVersion
+                cargs, args
+
+            member _.ApiVersion((cargs, args: AuditSinkArgs), apiVersion) =
+                args.ApiVersion <- io apiVersion
+                cargs, args
+
+            [<CustomOperation("kind")>]
+            member _.Kind((cargs, args: AuditSinkArgs), kind) =
+                args.Kind <- input kind
+                cargs, args
+
+            member _.Kind((cargs, args: AuditSinkArgs), kind) =
+                args.Kind <- io kind
+                cargs, args
+
+            [<CustomOperation("metadata")>]
+            member _.Metadata((cargs, args: AuditSinkArgs), metadata) =
+                args.Metadata <- input metadata
+                cargs, args
+
+            [<CustomOperation("spec")>]
+            member _.Spec((cargs, args: AuditSinkArgs), spec) =
+                args.Spec <- input spec
+                cargs, args
+
+        let auditSink = AuditSinkBuilder()
+
+module V2Beta1 =
+    module HorizontalPodAutoscaler =
+        open Pulumi.Kubernetes.Autoscaling.V2Beta1
+        open Pulumi.Kubernetes.Types.Inputs.Autoscaling.V2Beta1
+
+        type HorizontalPodAutoscalerBuilder() =
+            member _.Yield _ = KubernetesResource.Zero, HorizontalPodAutoscalerArgs()
+            member _.Run(cargs, args: HorizontalPodAutoscalerArgs) = HorizontalPodAutoscaler(cargs.Name, args)
+
+            [<CustomOperation("name")>]
+            member _.Name((cargs, args: HorizontalPodAutoscalerArgs), name) = { cargs with Name = name }, args
+
+            [<CustomOperation("apiVersion")>]
+            member _.ApiVersion((cargs, args: HorizontalPodAutoscalerArgs), apiVersion) =
+                args.ApiVersion <- input apiVersion
+                cargs, args
+
+            member _.ApiVersion((cargs, args: HorizontalPodAutoscalerArgs), apiVersion) =
+                args.ApiVersion <- io apiVersion
+                cargs, args
+
+            [<CustomOperation("kind")>]
+            member _.Kind((cargs, args: HorizontalPodAutoscalerArgs), kind) =
+                args.Kind <- input kind
+                cargs, args
+
+            member _.Kind((cargs, args: HorizontalPodAutoscalerArgs), kind) =
+                args.Kind <- io kind
+                cargs, args
+
+            [<CustomOperation("metadata")>]
+            member _.Metadata((cargs, args: HorizontalPodAutoscalerArgs), metadata) =
+                args.Metadata <- input metadata
+                cargs, args
+
+            [<CustomOperation("spec")>]
+            member _.Spec((cargs, args: HorizontalPodAutoscalerArgs), spec) =
+                args.Spec <- input spec
+                cargs, args
+
+        let horizontalPodAutoscaler = HorizontalPodAutoscalerBuilder()
+
+module V2Beta2 =
+    module HorizontalPodAutoscaler =
+        open Pulumi.Kubernetes.Autoscaling.V2Beta2
+        open Pulumi.Kubernetes.Types.Inputs.Autoscaling.V2Beta2
+
+        type HorizontalPodAutoscalerBuilder() =
+            member _.Yield _ = KubernetesResource.Zero, HorizontalPodAutoscalerArgs()
+            member _.Run(cargs, args: HorizontalPodAutoscalerArgs) = HorizontalPodAutoscaler(cargs.Name, args)
+
+            [<CustomOperation("name")>]
+            member _.Name((cargs, args: HorizontalPodAutoscalerArgs), name) = { cargs with Name = name }, args
+
+            [<CustomOperation("apiVersion")>]
+            member _.ApiVersion((cargs, args: HorizontalPodAutoscalerArgs), apiVersion) =
+                args.ApiVersion <- input apiVersion
+                cargs, args
+
+            member _.ApiVersion((cargs, args: HorizontalPodAutoscalerArgs), apiVersion) =
+                args.ApiVersion <- io apiVersion
+                cargs, args
+
+            [<CustomOperation("kind")>]
+            member _.Kind((cargs, args: HorizontalPodAutoscalerArgs), kind) =
+                args.Kind <- input kind
+                cargs, args
+
+            member _.Kind((cargs, args: HorizontalPodAutoscalerArgs), kind) =
+                args.Kind <- io kind
+                cargs, args
+
+            [<CustomOperation("metadata")>]
+            member _.Metadata((cargs, args: HorizontalPodAutoscalerArgs), metadata) =
+                args.Metadata <- input metadata
+                cargs, args
+
+            [<CustomOperation("spec")>]
+            member _.Spec((cargs, args: HorizontalPodAutoscalerArgs), spec) =
+                args.Spec <- input spec
+                cargs, args
+
+        let horizontalPodAutoscaler = HorizontalPodAutoscalerBuilder()
+
+module V2Alpha1 =
+    module CronJob =
+        open Pulumi.Kubernetes.Batch.V2Alpha1
+        open Pulumi.Kubernetes.Types.Inputs.Batch.V2Alpha1
+
+        type CronJobBuilder() =
+            member _.Yield _ = KubernetesResource.Zero, CronJobArgs()
+            member _.Run(cargs, args: CronJobArgs) = CronJob(cargs.Name, args)
+
+            [<CustomOperation("name")>]
+            member _.Name((cargs, args: CronJobArgs), name) = { cargs with Name = name }, args
+
+            [<CustomOperation("apiVersion")>]
+            member _.ApiVersion((cargs, args: CronJobArgs), apiVersion) =
+                args.ApiVersion <- input apiVersion
+                cargs, args
+
+            member _.ApiVersion((cargs, args: CronJobArgs), apiVersion) =
+                args.ApiVersion <- io apiVersion
+                cargs, args
+
+            [<CustomOperation("kind")>]
+            member _.Kind((cargs, args: CronJobArgs), kind) =
+                args.Kind <- input kind
+                cargs, args
+
+            member _.Kind((cargs, args: CronJobArgs), kind) =
+                args.Kind <- io kind
+                cargs, args
+
+            [<CustomOperation("metadata")>]
+            member _.Metadata((cargs, args: CronJobArgs), metadata) =
+                args.Metadata <- input metadata
+                cargs, args
+
+            [<CustomOperation("spec")>]
+            member _.Spec((cargs, args: CronJobArgs), spec) =
+                args.Spec <- input spec
+                cargs, args
+
+        let cronJob = CronJobBuilder()

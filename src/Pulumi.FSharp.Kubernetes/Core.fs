@@ -24,7 +24,7 @@ type KubernetesResourceArgs = {
 }
 
 [<AbstractClass>]
-type AzureResource internal () =
+type KubernetesResource internal () =
 
     static member Zero = {
          Name = "" // This needs to be an option or mandatory

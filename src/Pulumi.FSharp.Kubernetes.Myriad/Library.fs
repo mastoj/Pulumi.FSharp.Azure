@@ -24,11 +24,15 @@ module Generator =
 let private createAttribute name =
     SynAttributeList.Create(SynAttribute.Create(name))
 
-let private createModule name content =
+let private createModuleWithAttributes attributes name content =
     let componentInfo =
         { SynComponentInfoRcd.Create [ Ident.Create name ] with 
-              Attributes = [ createAttribute "AutoOpen" ]  }
+              Attributes = attributes }
     SynModuleDecl.CreateNestedModule(componentInfo, content)
+
+let private createAutoOpenModule = createModuleWithAttributes [(createAttribute "AutoOpen")]
+
+let private createModule = createModuleWithAttributes []
 
 let private createNamespace name content =
     { SynModuleOrNamespaceRcd.CreateNamespace(Ident.CreateLong name)
@@ -75,7 +79,7 @@ let private createMember name args attrs expr =
     
 let private createYield args =
     [
-        LongIdentWithDots.CreateString("AzureResource.Zero") |> SynExpr.CreateLongIdent
+        LongIdentWithDots.CreateString("KubernetesResource.Zero") |> SynExpr.CreateLongIdent
         args
     ] |>
     SynExpr.CreateTuple |>
@@ -218,9 +222,6 @@ let private createType (provider : PulumiProvider.Root) (fqType : string, jValue
         "complex"
    
     let [| tProvider; category; resourceType |] = fqType.Split(":")
-    // let [| fullProvider; fullType |] = fqType.Split("/")
-    // let [| tProvider; category |] = fullProvider.Split(':')
-    // let [| _(*version*); resourceType |] = fullType.Split(':')
     let typeName = toPascalCase resourceType
     let properties = jValue.GetProperty("inputProperties").Properties()
     
@@ -256,59 +257,50 @@ let private createType (provider : PulumiProvider.Root) (fqType : string, jValue
     
     ns, typeName, properties, nameAndType, serviceProvider
 
-[<MyriadGenerator("example1")>]
-type Example1Gen() =
+[<MyriadGenerator("k8sgenerator")>]
+type K8sGenerator() =
     interface IMyriadGenerator with
         member __.Generate(namespace', _) =
-            let let42 =
-                SynModuleDecl.CreateLet
-                    [ { SynBindingRcd.Let with
-                            Pattern = SynPatRcd.CreateLongIdent(LongIdentWithDots.CreateString "fourtyTwo", [])
-                            Expr = SynExpr.CreateConst(SynConst.Int32 42) } ]
-
-            let componentInfo = SynComponentInfoRcd.Create [ Ident.Create "example1" ]
-            let nestedModule = SynModuleDecl.CreateNestedModule(componentInfo, [ let42 ])
-
-            let namespaceOrModule =
-                { SynModuleOrNamespaceRcd.CreateNamespace(Ident.CreateLong namespace')
-                    with Declarations = [ nestedModule ] }
-
-            namespaceOrModule
-
-            // let provider = PulumiProvider.GetSample()
+            let provider = PulumiProvider.GetSample()
             
-            // let moduleWithType (ns, typeName, properties, nameAndType, serviceProvider) =
-            //     createModule ((serviceProvider |> toPascalCase) + typeName) [
-            //          createOpen ns
-                     
-            //          createAzureBuilderClass typeName (properties |> Array.map (nameAndType))
-                     
-            //          createLet (toSnakeCase (serviceProvider + typeName)) (createInstance (typeName + "Builder") SynExpr.CreateUnit)             
-            //     ]
+            let moduleWithType (ns, typeName, properties, nameAndType, (serviceProvider: string)) =
+                let [| _; version |] = serviceProvider.Split(".")
+                let moduleName = typeName
+                version, (moduleName, [
+                    createModule (moduleName) [
+                        createOpen ns
+                        createOpen (sprintf "Pulumi.Kubernetes.Types.Inputs.%s" serviceProvider)
+                        createAzureBuilderClass typeName (properties |> Array.map (nameAndType))
+                        createLet (toSnakeCase typeName) (createInstance (typeName + "Builder") SynExpr.CreateUnit)             
+                    ]
+                ])
             
-            // let modules =
-            //     provider.Resources.JsonValue.Properties() |>
-            //     // Filtering out the ones that I created manually, for now
-            //     Array.filter (fun (r, _) -> ([
-            //         "azure:core/resourceGroup:ResourceGroup"
-            //         "azure:appservice/plan:Plan"
-            //         "azure:storage/account:Account"
-            //         "azure:storage/container:Container"
-            //         "azure:storage/blob:Blob"
-            //         "azure:appinsights/insights:Insights"
-            //         "azure:core/templateDeployment:TemplateDeployment"
-            //         "azure:apimanagement/api:Api"
-            //         "azure:apimanagement/apiOperation:ApiOperation"
-            //         "azure:appservice/functionApp:FunctionApp"
-            //     ] |> List.contains r |> not)) |>
-            //     // Debug only
-            //     //Array.filter (fun (r, _) -> r = "azure:compute/virtualMachine:VirtualMachine") |>
-            //     Array.map (createType provider >>
-            //                moduleWithType) |>
-            //     List.ofArray
-            
-            // createNamespace ("Pulumi.FSharp.Kubernetes") ([
-            //      createOpen "Pulumi.FSharp.Azure.Core"
-            //      createOpen "Pulumi.Kubernetes.Core.V1"
-            //      createOpen "Pulumi.FSharp"
-            // ] @ modules)
+            let concatModules parentModule modules =
+                createModule parentModule (modules |> List.concat |> List.ofSeq)
+
+            let modules =
+                provider.Resources.JsonValue.Properties()
+                |> Array.map (createType provider >> moduleWithType)
+                |> Array.groupBy fst
+                |> Array.map (fun (parentModule, groupedModules) ->
+                    let distinctModules = groupedModules |> Array.distinctBy fst
+                    let modules = distinctModules |> Array.map (snd >> snd)
+                    concatModules parentModule (modules))
+                |> List.ofArray
+
+            let namespacesToOpen = 
+                [
+                    "Pulumi.FSharp"
+                    "Pulumi.FSharp.Kubernetes.Core"
+                    "Pulumi.Kubernetes"
+                    // "Pulumi.Kubernetes.Types.Inputs.AdmissionRegistration.V1"
+                    "Pulumi.Kubernetes.Apps.V1"
+                    "Pulumi.Kubernetes.Core.V1"
+                    // "Pulumi.Kubernetes.Types.Inputs.Apps.V1"
+                    // "Pulumi.Kubernetes.Types.Inputs.AuditRegistraion.V1Alpha1"
+                    // "Pulumi.Kubernetes.Types.Inputs.Core.V1"
+                    // "Pulumi.Kubernetes.Types.Inputs.Meta.V1"
+                ]
+                |> List.map createOpen
+
+            createNamespace ("Pulumi.FSharp.Kubernetes") (namespacesToOpen @ modules)
