@@ -267,7 +267,7 @@ type K8sGenerator() =
                 let [|serviceProvider; version|] = fullServiceProvider.Split(".")
                 let moduleName = typeName
                 (serviceProvider, version), (moduleName, [
-                    createModule (moduleName) [
+                    createAutoOpenModule (moduleName) [
                         createOpen ns
                         createOpen (sprintf "Pulumi.Kubernetes.Types.Inputs.%s" fullServiceProvider)
                         createAzureBuilderClass typeName (properties |> Array.map (nameAndType))
@@ -302,26 +302,10 @@ type K8sGenerator() =
                     createModule serviceProvider innerModules)
                 |> List.ofArray
 
-// module ServiceProvider =
-//     module Version =
-//         module TypeX
-//         module TypeY
-//     module Version2 =
-//         module TypeX
-//         module TypeZ
-
             let namespacesToOpen = 
                 [
                     "Pulumi.FSharp"
                     "Pulumi.FSharp.Kubernetes"
-                    // "Pulumi.Kubernetes"
-                    // "Pulumi.Kubernetes.Types.Inputs.AdmissionRegistration.V1"
-                    // "Pulumi.Kubernetes.Apps.V1"
-                    // "Pulumi.Kubernetes.Core.V1"
-                    // "Pulumi.Kubernetes.Types.Inputs.Apps.V1"
-                    // "Pulumi.Kubernetes.Types.Inputs.AuditRegistraion.V1Alpha1"
-                    // "Pulumi.Kubernetes.Types.Inputs.Core.V1"
-                    // "Pulumi.Kubernetes.Types.Inputs.Meta.V1"
                 ]
                 |> List.map createOpen
 

@@ -1,8 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
+# 
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Pulumi.FSharp.Kubernetes", "src\Pulumi.FSharp.Kubernetes\Pulumi.FSharp.Kubernetes.fsproj", "{152C53D3-587D-4232-92A2-FDC1E0FB4A68}"
 EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Pulumi.FSharp.Kubernetes.Myriad", "src\Pulumi.FSharp.Kubernetes.Myriad\Pulumi.FSharp.Kubernetes.Myriad.fsproj", "{EDDFE9E5-9B82-4ECF-AB23-86F3347D77EC}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "samples", "samples", "{AF9493A6-57D9-4978-BE98-FE7EC75A0DE7}"
+EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "KubernetesSample", "samples\KubernetesSample\KubernetesSample.fsproj", "{51768704-9422-45DD-B8DB-F6374575C7CF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -18,5 +23,12 @@ Global
 		{EDDFE9E5-9B82-4ECF-AB23-86F3347D77EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EDDFE9E5-9B82-4ECF-AB23-86F3347D77EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EDDFE9E5-9B82-4ECF-AB23-86F3347D77EC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{51768704-9422-45DD-B8DB-F6374575C7CF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{51768704-9422-45DD-B8DB-F6374575C7CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{51768704-9422-45DD-B8DB-F6374575C7CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{51768704-9422-45DD-B8DB-F6374575C7CF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{51768704-9422-45DD-B8DB-F6374575C7CF} = {AF9493A6-57D9-4978-BE98-FE7EC75A0DE7}
 	EndGlobalSection
 EndGlobal

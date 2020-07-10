@@ -9,6 +9,7 @@ open Pulumi.FSharp.Kubernetes
 
 module AdmissionRegistration =
     module V1 =
+        [<AutoOpen>]
         module MutatingWebhookConfiguration =
             open Pulumi.Kubernetes.AdmissionRegistration.V1
             open Pulumi.Kubernetes.Types.Inputs.AdmissionRegistration.V1
@@ -52,6 +53,7 @@ module AdmissionRegistration =
 
             let mutatingWebhookConfiguration = MutatingWebhookConfigurationBuilder()
 
+        [<AutoOpen>]
         module MutatingWebhookConfigurationList =
             open Pulumi.Kubernetes.AdmissionRegistration.V1
             open Pulumi.Kubernetes.Types.Inputs.AdmissionRegistration.V1
@@ -97,6 +99,7 @@ module AdmissionRegistration =
             let mutatingWebhookConfigurationList =
                 MutatingWebhookConfigurationListBuilder()
 
+        [<AutoOpen>]
         module ValidatingWebhookConfiguration =
             open Pulumi.Kubernetes.AdmissionRegistration.V1
             open Pulumi.Kubernetes.Types.Inputs.AdmissionRegistration.V1
@@ -141,6 +144,7 @@ module AdmissionRegistration =
 
             let validatingWebhookConfiguration = ValidatingWebhookConfigurationBuilder()
 
+        [<AutoOpen>]
         module ValidatingWebhookConfigurationList =
             open Pulumi.Kubernetes.AdmissionRegistration.V1
             open Pulumi.Kubernetes.Types.Inputs.AdmissionRegistration.V1
@@ -187,6 +191,7 @@ module AdmissionRegistration =
                 ValidatingWebhookConfigurationListBuilder()
 
     module V1Beta1 =
+        [<AutoOpen>]
         module MutatingWebhookConfiguration =
             open Pulumi.Kubernetes.AdmissionRegistration.V1Beta1
             open Pulumi.Kubernetes.Types.Inputs.AdmissionRegistration.V1Beta1
@@ -230,6 +235,7 @@ module AdmissionRegistration =
 
             let mutatingWebhookConfiguration = MutatingWebhookConfigurationBuilder()
 
+        [<AutoOpen>]
         module MutatingWebhookConfigurationList =
             open Pulumi.Kubernetes.AdmissionRegistration.V1Beta1
             open Pulumi.Kubernetes.Types.Inputs.AdmissionRegistration.V1Beta1
@@ -275,6 +281,7 @@ module AdmissionRegistration =
             let mutatingWebhookConfigurationList =
                 MutatingWebhookConfigurationListBuilder()
 
+        [<AutoOpen>]
         module ValidatingWebhookConfiguration =
             open Pulumi.Kubernetes.AdmissionRegistration.V1Beta1
             open Pulumi.Kubernetes.Types.Inputs.AdmissionRegistration.V1Beta1
@@ -319,6 +326,7 @@ module AdmissionRegistration =
 
             let validatingWebhookConfiguration = ValidatingWebhookConfigurationBuilder()
 
+        [<AutoOpen>]
         module ValidatingWebhookConfigurationList =
             open Pulumi.Kubernetes.AdmissionRegistration.V1Beta1
             open Pulumi.Kubernetes.Types.Inputs.AdmissionRegistration.V1Beta1
@@ -366,6 +374,7 @@ module AdmissionRegistration =
 
 module ApiExtensions =
     module V1 =
+        [<AutoOpen>]
         module CustomResourceDefinition =
             open Pulumi.Kubernetes.ApiExtensions.V1
             open Pulumi.Kubernetes.Types.Inputs.ApiExtensions.V1
@@ -407,6 +416,7 @@ module ApiExtensions =
 
             let customResourceDefinition = CustomResourceDefinitionBuilder()
 
+        [<AutoOpen>]
         module CustomResourceDefinitionList =
             open Pulumi.Kubernetes.ApiExtensions.V1
             open Pulumi.Kubernetes.Types.Inputs.ApiExtensions.V1
@@ -451,6 +461,7 @@ module ApiExtensions =
             let customResourceDefinitionList = CustomResourceDefinitionListBuilder()
 
     module V1Beta1 =
+        [<AutoOpen>]
         module CustomResourceDefinition =
             open Pulumi.Kubernetes.ApiExtensions.V1Beta1
             open Pulumi.Kubernetes.Types.Inputs.ApiExtensions.V1Beta1
@@ -492,6 +503,7 @@ module ApiExtensions =
 
             let customResourceDefinition = CustomResourceDefinitionBuilder()
 
+        [<AutoOpen>]
         module CustomResourceDefinitionList =
             open Pulumi.Kubernetes.ApiExtensions.V1Beta1
             open Pulumi.Kubernetes.Types.Inputs.ApiExtensions.V1Beta1
@@ -537,6 +549,7 @@ module ApiExtensions =
 
 module ApiRegistration =
     module V1 =
+        [<AutoOpen>]
         module APIService =
             open Pulumi.Kubernetes.ApiRegistration.V1
             open Pulumi.Kubernetes.Types.Inputs.ApiRegistration.V1
@@ -578,6 +591,7 @@ module ApiRegistration =
 
             let aPIService = APIServiceBuilder()
 
+        [<AutoOpen>]
         module APIServiceList =
             open Pulumi.Kubernetes.ApiRegistration.V1
             open Pulumi.Kubernetes.Types.Inputs.ApiRegistration.V1
@@ -620,6 +634,7 @@ module ApiRegistration =
             let aPIServiceList = APIServiceListBuilder()
 
     module V1Beta1 =
+        [<AutoOpen>]
         module APIService =
             open Pulumi.Kubernetes.ApiRegistration.V1Beta1
             open Pulumi.Kubernetes.Types.Inputs.ApiRegistration.V1Beta1
@@ -661,6 +676,7 @@ module ApiRegistration =
 
             let aPIService = APIServiceBuilder()
 
+        [<AutoOpen>]
         module APIServiceList =
             open Pulumi.Kubernetes.ApiRegistration.V1Beta1
             open Pulumi.Kubernetes.Types.Inputs.ApiRegistration.V1Beta1
@@ -704,6 +720,7 @@ module ApiRegistration =
 
 module Apps =
     module V1 =
+        [<AutoOpen>]
         module ControllerRevisionList =
             open Pulumi.Kubernetes.Apps.V1
             open Pulumi.Kubernetes.Types.Inputs.Apps.V1
@@ -745,6 +762,7 @@ module Apps =
 
             let controllerRevisionList = ControllerRevisionListBuilder()
 
+        [<AutoOpen>]
         module DaemonSet =
             open Pulumi.Kubernetes.Apps.V1
             open Pulumi.Kubernetes.Types.Inputs.Apps.V1
@@ -786,6 +804,7 @@ module Apps =
 
             let daemonSet = DaemonSetBuilder()
 
+        [<AutoOpen>]
         module DaemonSetList =
             open Pulumi.Kubernetes.Apps.V1
             open Pulumi.Kubernetes.Types.Inputs.Apps.V1
@@ -827,6 +846,7 @@ module Apps =
 
             let daemonSetList = DaemonSetListBuilder()
 
+        [<AutoOpen>]
         module Deployment =
             open Pulumi.Kubernetes.Apps.V1
             open Pulumi.Kubernetes.Types.Inputs.Apps.V1
@@ -868,6 +888,7 @@ module Apps =
 
             let deployment = DeploymentBuilder()
 
+        [<AutoOpen>]
         module DeploymentList =
             open Pulumi.Kubernetes.Apps.V1
             open Pulumi.Kubernetes.Types.Inputs.Apps.V1
@@ -909,6 +930,7 @@ module Apps =
 
             let deploymentList = DeploymentListBuilder()
 
+        [<AutoOpen>]
         module ReplicaSet =
             open Pulumi.Kubernetes.Apps.V1
             open Pulumi.Kubernetes.Types.Inputs.Apps.V1
@@ -950,6 +972,7 @@ module Apps =
 
             let replicaSet = ReplicaSetBuilder()
 
+        [<AutoOpen>]
         module ReplicaSetList =
             open Pulumi.Kubernetes.Apps.V1
             open Pulumi.Kubernetes.Types.Inputs.Apps.V1
@@ -991,6 +1014,7 @@ module Apps =
 
             let replicaSetList = ReplicaSetListBuilder()
 
+        [<AutoOpen>]
         module StatefulSet =
             open Pulumi.Kubernetes.Apps.V1
             open Pulumi.Kubernetes.Types.Inputs.Apps.V1
@@ -1032,6 +1056,7 @@ module Apps =
 
             let statefulSet = StatefulSetBuilder()
 
+        [<AutoOpen>]
         module StatefulSetList =
             open Pulumi.Kubernetes.Apps.V1
             open Pulumi.Kubernetes.Types.Inputs.Apps.V1
@@ -1074,6 +1099,7 @@ module Apps =
             let statefulSetList = StatefulSetListBuilder()
 
     module V1Beta1 =
+        [<AutoOpen>]
         module ControllerRevisionList =
             open Pulumi.Kubernetes.Apps.V1Beta1
             open Pulumi.Kubernetes.Types.Inputs.Apps.V1Beta1
@@ -1115,6 +1141,7 @@ module Apps =
 
             let controllerRevisionList = ControllerRevisionListBuilder()
 
+        [<AutoOpen>]
         module Deployment =
             open Pulumi.Kubernetes.Apps.V1Beta1
             open Pulumi.Kubernetes.Types.Inputs.Apps.V1Beta1
@@ -1156,6 +1183,7 @@ module Apps =
 
             let deployment = DeploymentBuilder()
 
+        [<AutoOpen>]
         module DeploymentList =
             open Pulumi.Kubernetes.Apps.V1Beta1
             open Pulumi.Kubernetes.Types.Inputs.Apps.V1Beta1
@@ -1197,6 +1225,7 @@ module Apps =
 
             let deploymentList = DeploymentListBuilder()
 
+        [<AutoOpen>]
         module StatefulSet =
             open Pulumi.Kubernetes.Apps.V1Beta1
             open Pulumi.Kubernetes.Types.Inputs.Apps.V1Beta1
@@ -1238,6 +1267,7 @@ module Apps =
 
             let statefulSet = StatefulSetBuilder()
 
+        [<AutoOpen>]
         module StatefulSetList =
             open Pulumi.Kubernetes.Apps.V1Beta1
             open Pulumi.Kubernetes.Types.Inputs.Apps.V1Beta1
@@ -1280,6 +1310,7 @@ module Apps =
             let statefulSetList = StatefulSetListBuilder()
 
     module V1Beta2 =
+        [<AutoOpen>]
         module ControllerRevisionList =
             open Pulumi.Kubernetes.Apps.V1Beta2
             open Pulumi.Kubernetes.Types.Inputs.Apps.V1Beta2
@@ -1321,6 +1352,7 @@ module Apps =
 
             let controllerRevisionList = ControllerRevisionListBuilder()
 
+        [<AutoOpen>]
         module DaemonSet =
             open Pulumi.Kubernetes.Apps.V1Beta2
             open Pulumi.Kubernetes.Types.Inputs.Apps.V1Beta2
@@ -1362,6 +1394,7 @@ module Apps =
 
             let daemonSet = DaemonSetBuilder()
 
+        [<AutoOpen>]
         module DaemonSetList =
             open Pulumi.Kubernetes.Apps.V1Beta2
             open Pulumi.Kubernetes.Types.Inputs.Apps.V1Beta2
@@ -1403,6 +1436,7 @@ module Apps =
 
             let daemonSetList = DaemonSetListBuilder()
 
+        [<AutoOpen>]
         module Deployment =
             open Pulumi.Kubernetes.Apps.V1Beta2
             open Pulumi.Kubernetes.Types.Inputs.Apps.V1Beta2
@@ -1444,6 +1478,7 @@ module Apps =
 
             let deployment = DeploymentBuilder()
 
+        [<AutoOpen>]
         module DeploymentList =
             open Pulumi.Kubernetes.Apps.V1Beta2
             open Pulumi.Kubernetes.Types.Inputs.Apps.V1Beta2
@@ -1485,6 +1520,7 @@ module Apps =
 
             let deploymentList = DeploymentListBuilder()
 
+        [<AutoOpen>]
         module ReplicaSet =
             open Pulumi.Kubernetes.Apps.V1Beta2
             open Pulumi.Kubernetes.Types.Inputs.Apps.V1Beta2
@@ -1526,6 +1562,7 @@ module Apps =
 
             let replicaSet = ReplicaSetBuilder()
 
+        [<AutoOpen>]
         module ReplicaSetList =
             open Pulumi.Kubernetes.Apps.V1Beta2
             open Pulumi.Kubernetes.Types.Inputs.Apps.V1Beta2
@@ -1567,6 +1604,7 @@ module Apps =
 
             let replicaSetList = ReplicaSetListBuilder()
 
+        [<AutoOpen>]
         module StatefulSet =
             open Pulumi.Kubernetes.Apps.V1Beta2
             open Pulumi.Kubernetes.Types.Inputs.Apps.V1Beta2
@@ -1608,6 +1646,7 @@ module Apps =
 
             let statefulSet = StatefulSetBuilder()
 
+        [<AutoOpen>]
         module StatefulSetList =
             open Pulumi.Kubernetes.Apps.V1Beta2
             open Pulumi.Kubernetes.Types.Inputs.Apps.V1Beta2
@@ -1651,6 +1690,7 @@ module Apps =
 
 module AuditRegistraion =
     module V1Alpha1 =
+        [<AutoOpen>]
         module AuditSink =
             open Pulumi.Kubernetes.AuditRegistraion.V1Alpha1
             open Pulumi.Kubernetes.Types.Inputs.AuditRegistraion.V1Alpha1
@@ -1692,6 +1732,7 @@ module AuditRegistraion =
 
             let auditSink = AuditSinkBuilder()
 
+        [<AutoOpen>]
         module AuditSinkList =
             open Pulumi.Kubernetes.AuditRegistraion.V1Alpha1
             open Pulumi.Kubernetes.Types.Inputs.AuditRegistraion.V1Alpha1
@@ -1735,6 +1776,7 @@ module AuditRegistraion =
 
 module Authentication =
     module V1 =
+        [<AutoOpen>]
         module TokenRequest =
             open Pulumi.Kubernetes.Authentication.V1
             open Pulumi.Kubernetes.Types.Inputs.Authentication.V1
@@ -1776,6 +1818,7 @@ module Authentication =
 
             let tokenRequest = TokenRequestBuilder()
 
+        [<AutoOpen>]
         module TokenReview =
             open Pulumi.Kubernetes.Authentication.V1
             open Pulumi.Kubernetes.Types.Inputs.Authentication.V1
@@ -1818,6 +1861,7 @@ module Authentication =
             let tokenReview = TokenReviewBuilder()
 
     module V1Beta1 =
+        [<AutoOpen>]
         module TokenReview =
             open Pulumi.Kubernetes.Authentication.V1Beta1
             open Pulumi.Kubernetes.Types.Inputs.Authentication.V1Beta1
@@ -1861,6 +1905,7 @@ module Authentication =
 
 module Authorization =
     module V1 =
+        [<AutoOpen>]
         module LocalSubjectAccessReview =
             open Pulumi.Kubernetes.Authorization.V1
             open Pulumi.Kubernetes.Types.Inputs.Authorization.V1
@@ -1902,6 +1947,7 @@ module Authorization =
 
             let localSubjectAccessReview = LocalSubjectAccessReviewBuilder()
 
+        [<AutoOpen>]
         module SelfSubjectAccessReview =
             open Pulumi.Kubernetes.Authorization.V1
             open Pulumi.Kubernetes.Types.Inputs.Authorization.V1
@@ -1943,6 +1989,7 @@ module Authorization =
 
             let selfSubjectAccessReview = SelfSubjectAccessReviewBuilder()
 
+        [<AutoOpen>]
         module SelfSubjectRulesReview =
             open Pulumi.Kubernetes.Authorization.V1
             open Pulumi.Kubernetes.Types.Inputs.Authorization.V1
@@ -1984,6 +2031,7 @@ module Authorization =
 
             let selfSubjectRulesReview = SelfSubjectRulesReviewBuilder()
 
+        [<AutoOpen>]
         module SubjectAccessReview =
             open Pulumi.Kubernetes.Authorization.V1
             open Pulumi.Kubernetes.Types.Inputs.Authorization.V1
@@ -2026,6 +2074,7 @@ module Authorization =
             let subjectAccessReview = SubjectAccessReviewBuilder()
 
     module V1Beta1 =
+        [<AutoOpen>]
         module LocalSubjectAccessReview =
             open Pulumi.Kubernetes.Authorization.V1Beta1
             open Pulumi.Kubernetes.Types.Inputs.Authorization.V1Beta1
@@ -2067,6 +2116,7 @@ module Authorization =
 
             let localSubjectAccessReview = LocalSubjectAccessReviewBuilder()
 
+        [<AutoOpen>]
         module SelfSubjectAccessReview =
             open Pulumi.Kubernetes.Authorization.V1Beta1
             open Pulumi.Kubernetes.Types.Inputs.Authorization.V1Beta1
@@ -2108,6 +2158,7 @@ module Authorization =
 
             let selfSubjectAccessReview = SelfSubjectAccessReviewBuilder()
 
+        [<AutoOpen>]
         module SelfSubjectRulesReview =
             open Pulumi.Kubernetes.Authorization.V1Beta1
             open Pulumi.Kubernetes.Types.Inputs.Authorization.V1Beta1
@@ -2149,6 +2200,7 @@ module Authorization =
 
             let selfSubjectRulesReview = SelfSubjectRulesReviewBuilder()
 
+        [<AutoOpen>]
         module SubjectAccessReview =
             open Pulumi.Kubernetes.Authorization.V1Beta1
             open Pulumi.Kubernetes.Types.Inputs.Authorization.V1Beta1
@@ -2192,6 +2244,7 @@ module Authorization =
 
 module Autoscaling =
     module V1 =
+        [<AutoOpen>]
         module HorizontalPodAutoscaler =
             open Pulumi.Kubernetes.Autoscaling.V1
             open Pulumi.Kubernetes.Types.Inputs.Autoscaling.V1
@@ -2233,6 +2286,7 @@ module Autoscaling =
 
             let horizontalPodAutoscaler = HorizontalPodAutoscalerBuilder()
 
+        [<AutoOpen>]
         module HorizontalPodAutoscalerList =
             open Pulumi.Kubernetes.Autoscaling.V1
             open Pulumi.Kubernetes.Types.Inputs.Autoscaling.V1
@@ -2277,6 +2331,7 @@ module Autoscaling =
             let horizontalPodAutoscalerList = HorizontalPodAutoscalerListBuilder()
 
     module V2Beta1 =
+        [<AutoOpen>]
         module HorizontalPodAutoscaler =
             open Pulumi.Kubernetes.Autoscaling.V2Beta1
             open Pulumi.Kubernetes.Types.Inputs.Autoscaling.V2Beta1
@@ -2318,6 +2373,7 @@ module Autoscaling =
 
             let horizontalPodAutoscaler = HorizontalPodAutoscalerBuilder()
 
+        [<AutoOpen>]
         module HorizontalPodAutoscalerList =
             open Pulumi.Kubernetes.Autoscaling.V2Beta1
             open Pulumi.Kubernetes.Types.Inputs.Autoscaling.V2Beta1
@@ -2362,6 +2418,7 @@ module Autoscaling =
             let horizontalPodAutoscalerList = HorizontalPodAutoscalerListBuilder()
 
     module V2Beta2 =
+        [<AutoOpen>]
         module HorizontalPodAutoscaler =
             open Pulumi.Kubernetes.Autoscaling.V2Beta2
             open Pulumi.Kubernetes.Types.Inputs.Autoscaling.V2Beta2
@@ -2403,6 +2460,7 @@ module Autoscaling =
 
             let horizontalPodAutoscaler = HorizontalPodAutoscalerBuilder()
 
+        [<AutoOpen>]
         module HorizontalPodAutoscalerList =
             open Pulumi.Kubernetes.Autoscaling.V2Beta2
             open Pulumi.Kubernetes.Types.Inputs.Autoscaling.V2Beta2
@@ -2448,6 +2506,7 @@ module Autoscaling =
 
 module Batch =
     module V1 =
+        [<AutoOpen>]
         module Job =
             open Pulumi.Kubernetes.Batch.V1
             open Pulumi.Kubernetes.Types.Inputs.Batch.V1
@@ -2489,6 +2548,7 @@ module Batch =
 
             let job = JobBuilder()
 
+        [<AutoOpen>]
         module JobList =
             open Pulumi.Kubernetes.Batch.V1
             open Pulumi.Kubernetes.Types.Inputs.Batch.V1
@@ -2531,6 +2591,7 @@ module Batch =
             let jobList = JobListBuilder()
 
     module V1Beta1 =
+        [<AutoOpen>]
         module CronJob =
             open Pulumi.Kubernetes.Batch.V1Beta1
             open Pulumi.Kubernetes.Types.Inputs.Batch.V1Beta1
@@ -2572,6 +2633,7 @@ module Batch =
 
             let cronJob = CronJobBuilder()
 
+        [<AutoOpen>]
         module CronJobList =
             open Pulumi.Kubernetes.Batch.V1Beta1
             open Pulumi.Kubernetes.Types.Inputs.Batch.V1Beta1
@@ -2614,6 +2676,7 @@ module Batch =
             let cronJobList = CronJobListBuilder()
 
     module V2Alpha1 =
+        [<AutoOpen>]
         module CronJob =
             open Pulumi.Kubernetes.Batch.V2Alpha1
             open Pulumi.Kubernetes.Types.Inputs.Batch.V2Alpha1
@@ -2655,6 +2718,7 @@ module Batch =
 
             let cronJob = CronJobBuilder()
 
+        [<AutoOpen>]
         module CronJobList =
             open Pulumi.Kubernetes.Batch.V2Alpha1
             open Pulumi.Kubernetes.Types.Inputs.Batch.V2Alpha1
@@ -2698,6 +2762,7 @@ module Batch =
 
 module Certificates =
     module V1Beta1 =
+        [<AutoOpen>]
         module CertificateSigningRequest =
             open Pulumi.Kubernetes.Certificates.V1Beta1
             open Pulumi.Kubernetes.Types.Inputs.Certificates.V1Beta1
@@ -2739,6 +2804,7 @@ module Certificates =
 
             let certificateSigningRequest = CertificateSigningRequestBuilder()
 
+        [<AutoOpen>]
         module CertificateSigningRequestList =
             open Pulumi.Kubernetes.Certificates.V1Beta1
             open Pulumi.Kubernetes.Types.Inputs.Certificates.V1Beta1
@@ -2784,6 +2850,7 @@ module Certificates =
 
 module Coordination =
     module V1 =
+        [<AutoOpen>]
         module Lease =
             open Pulumi.Kubernetes.Coordination.V1
             open Pulumi.Kubernetes.Types.Inputs.Coordination.V1
@@ -2825,6 +2892,7 @@ module Coordination =
 
             let lease = LeaseBuilder()
 
+        [<AutoOpen>]
         module LeaseList =
             open Pulumi.Kubernetes.Coordination.V1
             open Pulumi.Kubernetes.Types.Inputs.Coordination.V1
@@ -2867,6 +2935,7 @@ module Coordination =
             let leaseList = LeaseListBuilder()
 
     module V1Beta1 =
+        [<AutoOpen>]
         module Lease =
             open Pulumi.Kubernetes.Coordination.V1Beta1
             open Pulumi.Kubernetes.Types.Inputs.Coordination.V1Beta1
@@ -2908,6 +2977,7 @@ module Coordination =
 
             let lease = LeaseBuilder()
 
+        [<AutoOpen>]
         module LeaseList =
             open Pulumi.Kubernetes.Coordination.V1Beta1
             open Pulumi.Kubernetes.Types.Inputs.Coordination.V1Beta1
@@ -2951,6 +3021,7 @@ module Coordination =
 
 module Core =
     module V1 =
+        [<AutoOpen>]
         module Binding =
             open Pulumi.Kubernetes.Core.V1
             open Pulumi.Kubernetes.Types.Inputs.Core.V1
@@ -2992,6 +3063,7 @@ module Core =
 
             let binding = BindingBuilder()
 
+        [<AutoOpen>]
         module ComponentStatus =
             open Pulumi.Kubernetes.Core.V1
             open Pulumi.Kubernetes.Types.Inputs.Core.V1
@@ -3033,6 +3105,7 @@ module Core =
 
             let componentStatus = ComponentStatusBuilder()
 
+        [<AutoOpen>]
         module ComponentStatusList =
             open Pulumi.Kubernetes.Core.V1
             open Pulumi.Kubernetes.Types.Inputs.Core.V1
@@ -3074,6 +3147,7 @@ module Core =
 
             let componentStatusList = ComponentStatusListBuilder()
 
+        [<AutoOpen>]
         module ConfigMap =
             open Pulumi.Kubernetes.Core.V1
             open Pulumi.Kubernetes.Types.Inputs.Core.V1
@@ -3129,6 +3203,7 @@ module Core =
 
             let configMap = ConfigMapBuilder()
 
+        [<AutoOpen>]
         module ConfigMapList =
             open Pulumi.Kubernetes.Core.V1
             open Pulumi.Kubernetes.Types.Inputs.Core.V1
@@ -3170,6 +3245,7 @@ module Core =
 
             let configMapList = ConfigMapListBuilder()
 
+        [<AutoOpen>]
         module Endpoints =
             open Pulumi.Kubernetes.Core.V1
             open Pulumi.Kubernetes.Types.Inputs.Core.V1
@@ -3211,6 +3287,7 @@ module Core =
 
             let endpoints = EndpointsBuilder()
 
+        [<AutoOpen>]
         module EndpointsList =
             open Pulumi.Kubernetes.Core.V1
             open Pulumi.Kubernetes.Types.Inputs.Core.V1
@@ -3252,6 +3329,7 @@ module Core =
 
             let endpointsList = EndpointsListBuilder()
 
+        [<AutoOpen>]
         module Event =
             open Pulumi.Kubernetes.Core.V1
             open Pulumi.Kubernetes.Types.Inputs.Core.V1
@@ -3398,6 +3476,7 @@ module Core =
 
             let event = EventBuilder()
 
+        [<AutoOpen>]
         module EventList =
             open Pulumi.Kubernetes.Core.V1
             open Pulumi.Kubernetes.Types.Inputs.Core.V1
@@ -3439,6 +3518,7 @@ module Core =
 
             let eventList = EventListBuilder()
 
+        [<AutoOpen>]
         module LimitRange =
             open Pulumi.Kubernetes.Core.V1
             open Pulumi.Kubernetes.Types.Inputs.Core.V1
@@ -3480,6 +3560,7 @@ module Core =
 
             let limitRange = LimitRangeBuilder()
 
+        [<AutoOpen>]
         module LimitRangeList =
             open Pulumi.Kubernetes.Core.V1
             open Pulumi.Kubernetes.Types.Inputs.Core.V1
@@ -3521,6 +3602,7 @@ module Core =
 
             let limitRangeList = LimitRangeListBuilder()
 
+        [<AutoOpen>]
         module Namespace =
             open Pulumi.Kubernetes.Core.V1
             open Pulumi.Kubernetes.Types.Inputs.Core.V1
@@ -3562,6 +3644,7 @@ module Core =
 
             let ``namespace`` = NamespaceBuilder()
 
+        [<AutoOpen>]
         module NamespaceList =
             open Pulumi.Kubernetes.Core.V1
             open Pulumi.Kubernetes.Types.Inputs.Core.V1
@@ -3603,6 +3686,7 @@ module Core =
 
             let namespaceList = NamespaceListBuilder()
 
+        [<AutoOpen>]
         module Node =
             open Pulumi.Kubernetes.Core.V1
             open Pulumi.Kubernetes.Types.Inputs.Core.V1
@@ -3644,6 +3728,7 @@ module Core =
 
             let node = NodeBuilder()
 
+        [<AutoOpen>]
         module NodeList =
             open Pulumi.Kubernetes.Core.V1
             open Pulumi.Kubernetes.Types.Inputs.Core.V1
@@ -3685,6 +3770,7 @@ module Core =
 
             let nodeList = NodeListBuilder()
 
+        [<AutoOpen>]
         module PersistentVolume =
             open Pulumi.Kubernetes.Core.V1
             open Pulumi.Kubernetes.Types.Inputs.Core.V1
@@ -3726,6 +3812,7 @@ module Core =
 
             let persistentVolume = PersistentVolumeBuilder()
 
+        [<AutoOpen>]
         module PersistentVolumeClaim =
             open Pulumi.Kubernetes.Core.V1
             open Pulumi.Kubernetes.Types.Inputs.Core.V1
@@ -3767,6 +3854,7 @@ module Core =
 
             let persistentVolumeClaim = PersistentVolumeClaimBuilder()
 
+        [<AutoOpen>]
         module PersistentVolumeClaimList =
             open Pulumi.Kubernetes.Core.V1
             open Pulumi.Kubernetes.Types.Inputs.Core.V1
@@ -3808,6 +3896,7 @@ module Core =
 
             let persistentVolumeClaimList = PersistentVolumeClaimListBuilder()
 
+        [<AutoOpen>]
         module PersistentVolumeList =
             open Pulumi.Kubernetes.Core.V1
             open Pulumi.Kubernetes.Types.Inputs.Core.V1
@@ -3849,6 +3938,7 @@ module Core =
 
             let persistentVolumeList = PersistentVolumeListBuilder()
 
+        [<AutoOpen>]
         module Pod =
             open Pulumi.Kubernetes.Core.V1
             open Pulumi.Kubernetes.Types.Inputs.Core.V1
@@ -3890,6 +3980,7 @@ module Core =
 
             let pod = PodBuilder()
 
+        [<AutoOpen>]
         module PodList =
             open Pulumi.Kubernetes.Core.V1
             open Pulumi.Kubernetes.Types.Inputs.Core.V1
@@ -3931,6 +4022,7 @@ module Core =
 
             let podList = PodListBuilder()
 
+        [<AutoOpen>]
         module PodTemplate =
             open Pulumi.Kubernetes.Core.V1
             open Pulumi.Kubernetes.Types.Inputs.Core.V1
@@ -3972,6 +4064,7 @@ module Core =
 
             let podTemplate = PodTemplateBuilder()
 
+        [<AutoOpen>]
         module PodTemplateList =
             open Pulumi.Kubernetes.Core.V1
             open Pulumi.Kubernetes.Types.Inputs.Core.V1
@@ -4013,6 +4106,7 @@ module Core =
 
             let podTemplateList = PodTemplateListBuilder()
 
+        [<AutoOpen>]
         module ReplicationController =
             open Pulumi.Kubernetes.Core.V1
             open Pulumi.Kubernetes.Types.Inputs.Core.V1
@@ -4054,6 +4148,7 @@ module Core =
 
             let replicationController = ReplicationControllerBuilder()
 
+        [<AutoOpen>]
         module ReplicationControllerList =
             open Pulumi.Kubernetes.Core.V1
             open Pulumi.Kubernetes.Types.Inputs.Core.V1
@@ -4095,6 +4190,7 @@ module Core =
 
             let replicationControllerList = ReplicationControllerListBuilder()
 
+        [<AutoOpen>]
         module ResourceQuota =
             open Pulumi.Kubernetes.Core.V1
             open Pulumi.Kubernetes.Types.Inputs.Core.V1
@@ -4136,6 +4232,7 @@ module Core =
 
             let resourceQuota = ResourceQuotaBuilder()
 
+        [<AutoOpen>]
         module ResourceQuotaList =
             open Pulumi.Kubernetes.Core.V1
             open Pulumi.Kubernetes.Types.Inputs.Core.V1
@@ -4177,6 +4274,7 @@ module Core =
 
             let resourceQuotaList = ResourceQuotaListBuilder()
 
+        [<AutoOpen>]
         module Secret =
             open Pulumi.Kubernetes.Core.V1
             open Pulumi.Kubernetes.Types.Inputs.Core.V1
@@ -4241,6 +4339,7 @@ module Core =
 
             let secret = SecretBuilder()
 
+        [<AutoOpen>]
         module SecretList =
             open Pulumi.Kubernetes.Core.V1
             open Pulumi.Kubernetes.Types.Inputs.Core.V1
@@ -4282,6 +4381,7 @@ module Core =
 
             let secretList = SecretListBuilder()
 
+        [<AutoOpen>]
         module Service =
             open Pulumi.Kubernetes.Core.V1
             open Pulumi.Kubernetes.Types.Inputs.Core.V1
@@ -4323,6 +4423,7 @@ module Core =
 
             let service = ServiceBuilder()
 
+        [<AutoOpen>]
         module ServiceAccount =
             open Pulumi.Kubernetes.Core.V1
             open Pulumi.Kubernetes.Types.Inputs.Core.V1
@@ -4378,6 +4479,7 @@ module Core =
 
             let serviceAccount = ServiceAccountBuilder()
 
+        [<AutoOpen>]
         module ServiceAccountList =
             open Pulumi.Kubernetes.Core.V1
             open Pulumi.Kubernetes.Types.Inputs.Core.V1
@@ -4419,6 +4521,7 @@ module Core =
 
             let serviceAccountList = ServiceAccountListBuilder()
 
+        [<AutoOpen>]
         module ServiceList =
             open Pulumi.Kubernetes.Core.V1
             open Pulumi.Kubernetes.Types.Inputs.Core.V1
@@ -4462,6 +4565,7 @@ module Core =
 
 module Discovery =
     module V1Beta1 =
+        [<AutoOpen>]
         module EndpointSlice =
             open Pulumi.Kubernetes.Discovery.V1Beta1
             open Pulumi.Kubernetes.Types.Inputs.Discovery.V1Beta1
@@ -4517,6 +4621,7 @@ module Discovery =
 
             let endpointSlice = EndpointSliceBuilder()
 
+        [<AutoOpen>]
         module EndpointSliceList =
             open Pulumi.Kubernetes.Discovery.V1Beta1
             open Pulumi.Kubernetes.Types.Inputs.Discovery.V1Beta1
@@ -4560,6 +4665,7 @@ module Discovery =
 
 module Events =
     module V1Beta1 =
+        [<AutoOpen>]
         module Event =
             open Pulumi.Kubernetes.Events.V1Beta1
             open Pulumi.Kubernetes.Types.Inputs.Events.V1Beta1
@@ -4706,6 +4812,7 @@ module Events =
 
             let event = EventBuilder()
 
+        [<AutoOpen>]
         module EventList =
             open Pulumi.Kubernetes.Events.V1Beta1
             open Pulumi.Kubernetes.Types.Inputs.Events.V1Beta1
@@ -4749,6 +4856,7 @@ module Events =
 
 module Extensions =
     module V1Beta1 =
+        [<AutoOpen>]
         module DaemonSet =
             open Pulumi.Kubernetes.Extensions.V1Beta1
             open Pulumi.Kubernetes.Types.Inputs.Extensions.V1Beta1
@@ -4790,6 +4898,7 @@ module Extensions =
 
             let daemonSet = DaemonSetBuilder()
 
+        [<AutoOpen>]
         module DaemonSetList =
             open Pulumi.Kubernetes.Extensions.V1Beta1
             open Pulumi.Kubernetes.Types.Inputs.Extensions.V1Beta1
@@ -4831,6 +4940,7 @@ module Extensions =
 
             let daemonSetList = DaemonSetListBuilder()
 
+        [<AutoOpen>]
         module Deployment =
             open Pulumi.Kubernetes.Extensions.V1Beta1
             open Pulumi.Kubernetes.Types.Inputs.Extensions.V1Beta1
@@ -4872,6 +4982,7 @@ module Extensions =
 
             let deployment = DeploymentBuilder()
 
+        [<AutoOpen>]
         module DeploymentList =
             open Pulumi.Kubernetes.Extensions.V1Beta1
             open Pulumi.Kubernetes.Types.Inputs.Extensions.V1Beta1
@@ -4913,6 +5024,7 @@ module Extensions =
 
             let deploymentList = DeploymentListBuilder()
 
+        [<AutoOpen>]
         module Ingress =
             open Pulumi.Kubernetes.Extensions.V1Beta1
             open Pulumi.Kubernetes.Types.Inputs.Extensions.V1Beta1
@@ -4954,6 +5066,7 @@ module Extensions =
 
             let ingress = IngressBuilder()
 
+        [<AutoOpen>]
         module IngressList =
             open Pulumi.Kubernetes.Extensions.V1Beta1
             open Pulumi.Kubernetes.Types.Inputs.Extensions.V1Beta1
@@ -4995,6 +5108,7 @@ module Extensions =
 
             let ingressList = IngressListBuilder()
 
+        [<AutoOpen>]
         module NetworkPolicy =
             open Pulumi.Kubernetes.Extensions.V1Beta1
             open Pulumi.Kubernetes.Types.Inputs.Extensions.V1Beta1
@@ -5036,6 +5150,7 @@ module Extensions =
 
             let networkPolicy = NetworkPolicyBuilder()
 
+        [<AutoOpen>]
         module NetworkPolicyList =
             open Pulumi.Kubernetes.Extensions.V1Beta1
             open Pulumi.Kubernetes.Types.Inputs.Extensions.V1Beta1
@@ -5077,6 +5192,7 @@ module Extensions =
 
             let networkPolicyList = NetworkPolicyListBuilder()
 
+        [<AutoOpen>]
         module PodSecurityPolicy =
             open Pulumi.Kubernetes.Extensions.V1Beta1
             open Pulumi.Kubernetes.Types.Inputs.Extensions.V1Beta1
@@ -5118,6 +5234,7 @@ module Extensions =
 
             let podSecurityPolicy = PodSecurityPolicyBuilder()
 
+        [<AutoOpen>]
         module PodSecurityPolicyList =
             open Pulumi.Kubernetes.Extensions.V1Beta1
             open Pulumi.Kubernetes.Types.Inputs.Extensions.V1Beta1
@@ -5159,6 +5276,7 @@ module Extensions =
 
             let podSecurityPolicyList = PodSecurityPolicyListBuilder()
 
+        [<AutoOpen>]
         module ReplicaSet =
             open Pulumi.Kubernetes.Extensions.V1Beta1
             open Pulumi.Kubernetes.Types.Inputs.Extensions.V1Beta1
@@ -5200,6 +5318,7 @@ module Extensions =
 
             let replicaSet = ReplicaSetBuilder()
 
+        [<AutoOpen>]
         module ReplicaSetList =
             open Pulumi.Kubernetes.Extensions.V1Beta1
             open Pulumi.Kubernetes.Types.Inputs.Extensions.V1Beta1
@@ -5243,6 +5362,7 @@ module Extensions =
 
 module FlowControl =
     module V1Alpha1 =
+        [<AutoOpen>]
         module FlowSchema =
             open Pulumi.Kubernetes.FlowControl.V1Alpha1
             open Pulumi.Kubernetes.Types.Inputs.FlowControl.V1Alpha1
@@ -5284,6 +5404,7 @@ module FlowControl =
 
             let flowSchema = FlowSchemaBuilder()
 
+        [<AutoOpen>]
         module FlowSchemaList =
             open Pulumi.Kubernetes.FlowControl.V1Alpha1
             open Pulumi.Kubernetes.Types.Inputs.FlowControl.V1Alpha1
@@ -5325,6 +5446,7 @@ module FlowControl =
 
             let flowSchemaList = FlowSchemaListBuilder()
 
+        [<AutoOpen>]
         module PriorityLevelConfiguration =
             open Pulumi.Kubernetes.FlowControl.V1Alpha1
             open Pulumi.Kubernetes.Types.Inputs.FlowControl.V1Alpha1
@@ -5366,6 +5488,7 @@ module FlowControl =
 
             let priorityLevelConfiguration = PriorityLevelConfigurationBuilder()
 
+        [<AutoOpen>]
         module PriorityLevelConfigurationList =
             open Pulumi.Kubernetes.FlowControl.V1Alpha1
             open Pulumi.Kubernetes.Types.Inputs.FlowControl.V1Alpha1
@@ -5412,6 +5535,7 @@ module FlowControl =
 
 module Meta =
     module V1 =
+        [<AutoOpen>]
         module Status =
             open Pulumi.Kubernetes.Meta.V1
             open Pulumi.Kubernetes.Types.Inputs.Meta.V1
@@ -5482,6 +5606,7 @@ module Meta =
 
 module Networking =
     module V1 =
+        [<AutoOpen>]
         module NetworkPolicy =
             open Pulumi.Kubernetes.Networking.V1
             open Pulumi.Kubernetes.Types.Inputs.Networking.V1
@@ -5523,6 +5648,7 @@ module Networking =
 
             let networkPolicy = NetworkPolicyBuilder()
 
+        [<AutoOpen>]
         module NetworkPolicyList =
             open Pulumi.Kubernetes.Networking.V1
             open Pulumi.Kubernetes.Types.Inputs.Networking.V1
@@ -5565,6 +5691,7 @@ module Networking =
             let networkPolicyList = NetworkPolicyListBuilder()
 
     module V1Beta1 =
+        [<AutoOpen>]
         module Ingress =
             open Pulumi.Kubernetes.Networking.V1Beta1
             open Pulumi.Kubernetes.Types.Inputs.Networking.V1Beta1
@@ -5606,6 +5733,7 @@ module Networking =
 
             let ingress = IngressBuilder()
 
+        [<AutoOpen>]
         module IngressClass =
             open Pulumi.Kubernetes.Networking.V1Beta1
             open Pulumi.Kubernetes.Types.Inputs.Networking.V1Beta1
@@ -5647,6 +5775,7 @@ module Networking =
 
             let ingressClass = IngressClassBuilder()
 
+        [<AutoOpen>]
         module IngressClassList =
             open Pulumi.Kubernetes.Networking.V1Beta1
             open Pulumi.Kubernetes.Types.Inputs.Networking.V1Beta1
@@ -5688,6 +5817,7 @@ module Networking =
 
             let ingressClassList = IngressClassListBuilder()
 
+        [<AutoOpen>]
         module IngressList =
             open Pulumi.Kubernetes.Networking.V1Beta1
             open Pulumi.Kubernetes.Types.Inputs.Networking.V1Beta1
@@ -5731,6 +5861,7 @@ module Networking =
 
 module Node =
     module V1Alpha1 =
+        [<AutoOpen>]
         module RuntimeClass =
             open Pulumi.Kubernetes.Node.V1Alpha1
             open Pulumi.Kubernetes.Types.Inputs.Node.V1Alpha1
@@ -5772,6 +5903,7 @@ module Node =
 
             let runtimeClass = RuntimeClassBuilder()
 
+        [<AutoOpen>]
         module RuntimeClassList =
             open Pulumi.Kubernetes.Node.V1Alpha1
             open Pulumi.Kubernetes.Types.Inputs.Node.V1Alpha1
@@ -5814,6 +5946,7 @@ module Node =
             let runtimeClassList = RuntimeClassListBuilder()
 
     module V1Beta1 =
+        [<AutoOpen>]
         module RuntimeClass =
             open Pulumi.Kubernetes.Node.V1Beta1
             open Pulumi.Kubernetes.Types.Inputs.Node.V1Beta1
@@ -5869,6 +6002,7 @@ module Node =
 
             let runtimeClass = RuntimeClassBuilder()
 
+        [<AutoOpen>]
         module RuntimeClassList =
             open Pulumi.Kubernetes.Node.V1Beta1
             open Pulumi.Kubernetes.Types.Inputs.Node.V1Beta1
@@ -5912,6 +6046,7 @@ module Node =
 
 module Policy =
     module V1Beta1 =
+        [<AutoOpen>]
         module PodDisruptionBudget =
             open Pulumi.Kubernetes.Policy.V1Beta1
             open Pulumi.Kubernetes.Types.Inputs.Policy.V1Beta1
@@ -5953,6 +6088,7 @@ module Policy =
 
             let podDisruptionBudget = PodDisruptionBudgetBuilder()
 
+        [<AutoOpen>]
         module PodDisruptionBudgetList =
             open Pulumi.Kubernetes.Policy.V1Beta1
             open Pulumi.Kubernetes.Types.Inputs.Policy.V1Beta1
@@ -5994,6 +6130,7 @@ module Policy =
 
             let podDisruptionBudgetList = PodDisruptionBudgetListBuilder()
 
+        [<AutoOpen>]
         module PodSecurityPolicy =
             open Pulumi.Kubernetes.Policy.V1Beta1
             open Pulumi.Kubernetes.Types.Inputs.Policy.V1Beta1
@@ -6035,6 +6172,7 @@ module Policy =
 
             let podSecurityPolicy = PodSecurityPolicyBuilder()
 
+        [<AutoOpen>]
         module PodSecurityPolicyList =
             open Pulumi.Kubernetes.Policy.V1Beta1
             open Pulumi.Kubernetes.Types.Inputs.Policy.V1Beta1
@@ -6078,6 +6216,7 @@ module Policy =
 
 module Rbac =
     module V1 =
+        [<AutoOpen>]
         module ClusterRole =
             open Pulumi.Kubernetes.Rbac.V1
             open Pulumi.Kubernetes.Types.Inputs.Rbac.V1
@@ -6124,6 +6263,7 @@ module Rbac =
 
             let clusterRole = ClusterRoleBuilder()
 
+        [<AutoOpen>]
         module ClusterRoleBinding =
             open Pulumi.Kubernetes.Rbac.V1
             open Pulumi.Kubernetes.Types.Inputs.Rbac.V1
@@ -6170,6 +6310,7 @@ module Rbac =
 
             let clusterRoleBinding = ClusterRoleBindingBuilder()
 
+        [<AutoOpen>]
         module ClusterRoleBindingList =
             open Pulumi.Kubernetes.Rbac.V1
             open Pulumi.Kubernetes.Types.Inputs.Rbac.V1
@@ -6211,6 +6352,7 @@ module Rbac =
 
             let clusterRoleBindingList = ClusterRoleBindingListBuilder()
 
+        [<AutoOpen>]
         module ClusterRoleList =
             open Pulumi.Kubernetes.Rbac.V1
             open Pulumi.Kubernetes.Types.Inputs.Rbac.V1
@@ -6252,6 +6394,7 @@ module Rbac =
 
             let clusterRoleList = ClusterRoleListBuilder()
 
+        [<AutoOpen>]
         module Role =
             open Pulumi.Kubernetes.Rbac.V1
             open Pulumi.Kubernetes.Types.Inputs.Rbac.V1
@@ -6293,6 +6436,7 @@ module Rbac =
 
             let role = RoleBuilder()
 
+        [<AutoOpen>]
         module RoleBinding =
             open Pulumi.Kubernetes.Rbac.V1
             open Pulumi.Kubernetes.Types.Inputs.Rbac.V1
@@ -6339,6 +6483,7 @@ module Rbac =
 
             let roleBinding = RoleBindingBuilder()
 
+        [<AutoOpen>]
         module RoleBindingList =
             open Pulumi.Kubernetes.Rbac.V1
             open Pulumi.Kubernetes.Types.Inputs.Rbac.V1
@@ -6380,6 +6525,7 @@ module Rbac =
 
             let roleBindingList = RoleBindingListBuilder()
 
+        [<AutoOpen>]
         module RoleList =
             open Pulumi.Kubernetes.Rbac.V1
             open Pulumi.Kubernetes.Types.Inputs.Rbac.V1
@@ -6422,6 +6568,7 @@ module Rbac =
             let roleList = RoleListBuilder()
 
     module V1Alpha1 =
+        [<AutoOpen>]
         module ClusterRole =
             open Pulumi.Kubernetes.Rbac.V1Alpha1
             open Pulumi.Kubernetes.Types.Inputs.Rbac.V1Alpha1
@@ -6468,6 +6615,7 @@ module Rbac =
 
             let clusterRole = ClusterRoleBuilder()
 
+        [<AutoOpen>]
         module ClusterRoleBinding =
             open Pulumi.Kubernetes.Rbac.V1Alpha1
             open Pulumi.Kubernetes.Types.Inputs.Rbac.V1Alpha1
@@ -6514,6 +6662,7 @@ module Rbac =
 
             let clusterRoleBinding = ClusterRoleBindingBuilder()
 
+        [<AutoOpen>]
         module ClusterRoleBindingList =
             open Pulumi.Kubernetes.Rbac.V1Alpha1
             open Pulumi.Kubernetes.Types.Inputs.Rbac.V1Alpha1
@@ -6555,6 +6704,7 @@ module Rbac =
 
             let clusterRoleBindingList = ClusterRoleBindingListBuilder()
 
+        [<AutoOpen>]
         module ClusterRoleList =
             open Pulumi.Kubernetes.Rbac.V1Alpha1
             open Pulumi.Kubernetes.Types.Inputs.Rbac.V1Alpha1
@@ -6596,6 +6746,7 @@ module Rbac =
 
             let clusterRoleList = ClusterRoleListBuilder()
 
+        [<AutoOpen>]
         module Role =
             open Pulumi.Kubernetes.Rbac.V1Alpha1
             open Pulumi.Kubernetes.Types.Inputs.Rbac.V1Alpha1
@@ -6637,6 +6788,7 @@ module Rbac =
 
             let role = RoleBuilder()
 
+        [<AutoOpen>]
         module RoleBinding =
             open Pulumi.Kubernetes.Rbac.V1Alpha1
             open Pulumi.Kubernetes.Types.Inputs.Rbac.V1Alpha1
@@ -6683,6 +6835,7 @@ module Rbac =
 
             let roleBinding = RoleBindingBuilder()
 
+        [<AutoOpen>]
         module RoleBindingList =
             open Pulumi.Kubernetes.Rbac.V1Alpha1
             open Pulumi.Kubernetes.Types.Inputs.Rbac.V1Alpha1
@@ -6724,6 +6877,7 @@ module Rbac =
 
             let roleBindingList = RoleBindingListBuilder()
 
+        [<AutoOpen>]
         module RoleList =
             open Pulumi.Kubernetes.Rbac.V1Alpha1
             open Pulumi.Kubernetes.Types.Inputs.Rbac.V1Alpha1
@@ -6766,6 +6920,7 @@ module Rbac =
             let roleList = RoleListBuilder()
 
     module V1Beta1 =
+        [<AutoOpen>]
         module ClusterRole =
             open Pulumi.Kubernetes.Rbac.V1Beta1
             open Pulumi.Kubernetes.Types.Inputs.Rbac.V1Beta1
@@ -6812,6 +6967,7 @@ module Rbac =
 
             let clusterRole = ClusterRoleBuilder()
 
+        [<AutoOpen>]
         module ClusterRoleBinding =
             open Pulumi.Kubernetes.Rbac.V1Beta1
             open Pulumi.Kubernetes.Types.Inputs.Rbac.V1Beta1
@@ -6858,6 +7014,7 @@ module Rbac =
 
             let clusterRoleBinding = ClusterRoleBindingBuilder()
 
+        [<AutoOpen>]
         module ClusterRoleBindingList =
             open Pulumi.Kubernetes.Rbac.V1Beta1
             open Pulumi.Kubernetes.Types.Inputs.Rbac.V1Beta1
@@ -6899,6 +7056,7 @@ module Rbac =
 
             let clusterRoleBindingList = ClusterRoleBindingListBuilder()
 
+        [<AutoOpen>]
         module ClusterRoleList =
             open Pulumi.Kubernetes.Rbac.V1Beta1
             open Pulumi.Kubernetes.Types.Inputs.Rbac.V1Beta1
@@ -6940,6 +7098,7 @@ module Rbac =
 
             let clusterRoleList = ClusterRoleListBuilder()
 
+        [<AutoOpen>]
         module Role =
             open Pulumi.Kubernetes.Rbac.V1Beta1
             open Pulumi.Kubernetes.Types.Inputs.Rbac.V1Beta1
@@ -6981,6 +7140,7 @@ module Rbac =
 
             let role = RoleBuilder()
 
+        [<AutoOpen>]
         module RoleBinding =
             open Pulumi.Kubernetes.Rbac.V1Beta1
             open Pulumi.Kubernetes.Types.Inputs.Rbac.V1Beta1
@@ -7027,6 +7187,7 @@ module Rbac =
 
             let roleBinding = RoleBindingBuilder()
 
+        [<AutoOpen>]
         module RoleBindingList =
             open Pulumi.Kubernetes.Rbac.V1Beta1
             open Pulumi.Kubernetes.Types.Inputs.Rbac.V1Beta1
@@ -7068,6 +7229,7 @@ module Rbac =
 
             let roleBindingList = RoleBindingListBuilder()
 
+        [<AutoOpen>]
         module RoleList =
             open Pulumi.Kubernetes.Rbac.V1Beta1
             open Pulumi.Kubernetes.Types.Inputs.Rbac.V1Beta1
@@ -7111,6 +7273,7 @@ module Rbac =
 
 module Scheduling =
     module V1 =
+        [<AutoOpen>]
         module PriorityClass =
             open Pulumi.Kubernetes.Scheduling.V1
             open Pulumi.Kubernetes.Types.Inputs.Scheduling.V1
@@ -7183,6 +7346,7 @@ module Scheduling =
 
             let priorityClass = PriorityClassBuilder()
 
+        [<AutoOpen>]
         module PriorityClassList =
             open Pulumi.Kubernetes.Scheduling.V1
             open Pulumi.Kubernetes.Types.Inputs.Scheduling.V1
@@ -7225,6 +7389,7 @@ module Scheduling =
             let priorityClassList = PriorityClassListBuilder()
 
     module V1Alpha1 =
+        [<AutoOpen>]
         module PriorityClass =
             open Pulumi.Kubernetes.Scheduling.V1Alpha1
             open Pulumi.Kubernetes.Types.Inputs.Scheduling.V1Alpha1
@@ -7297,6 +7462,7 @@ module Scheduling =
 
             let priorityClass = PriorityClassBuilder()
 
+        [<AutoOpen>]
         module PriorityClassList =
             open Pulumi.Kubernetes.Scheduling.V1Alpha1
             open Pulumi.Kubernetes.Types.Inputs.Scheduling.V1Alpha1
@@ -7339,6 +7505,7 @@ module Scheduling =
             let priorityClassList = PriorityClassListBuilder()
 
     module V1Beta1 =
+        [<AutoOpen>]
         module PriorityClass =
             open Pulumi.Kubernetes.Scheduling.V1Beta1
             open Pulumi.Kubernetes.Types.Inputs.Scheduling.V1Beta1
@@ -7411,6 +7578,7 @@ module Scheduling =
 
             let priorityClass = PriorityClassBuilder()
 
+        [<AutoOpen>]
         module PriorityClassList =
             open Pulumi.Kubernetes.Scheduling.V1Beta1
             open Pulumi.Kubernetes.Types.Inputs.Scheduling.V1Beta1
@@ -7454,6 +7622,7 @@ module Scheduling =
 
 module Settings =
     module V1Alpha1 =
+        [<AutoOpen>]
         module PodPreset =
             open Pulumi.Kubernetes.Settings.V1Alpha1
             open Pulumi.Kubernetes.Types.Inputs.Settings.V1Alpha1
@@ -7495,6 +7664,7 @@ module Settings =
 
             let podPreset = PodPresetBuilder()
 
+        [<AutoOpen>]
         module PodPresetList =
             open Pulumi.Kubernetes.Settings.V1Alpha1
             open Pulumi.Kubernetes.Types.Inputs.Settings.V1Alpha1
@@ -7538,6 +7708,7 @@ module Settings =
 
 module Storage =
     module V1 =
+        [<AutoOpen>]
         module CSIDriver =
             open Pulumi.Kubernetes.Storage.V1
             open Pulumi.Kubernetes.Types.Inputs.Storage.V1
@@ -7579,6 +7750,7 @@ module Storage =
 
             let cSIDriver = CSIDriverBuilder()
 
+        [<AutoOpen>]
         module CSIDriverList =
             open Pulumi.Kubernetes.Storage.V1
             open Pulumi.Kubernetes.Types.Inputs.Storage.V1
@@ -7620,6 +7792,7 @@ module Storage =
 
             let cSIDriverList = CSIDriverListBuilder()
 
+        [<AutoOpen>]
         module CSINode =
             open Pulumi.Kubernetes.Storage.V1
             open Pulumi.Kubernetes.Types.Inputs.Storage.V1
@@ -7661,6 +7834,7 @@ module Storage =
 
             let cSINode = CSINodeBuilder()
 
+        [<AutoOpen>]
         module CSINodeList =
             open Pulumi.Kubernetes.Storage.V1
             open Pulumi.Kubernetes.Types.Inputs.Storage.V1
@@ -7702,6 +7876,7 @@ module Storage =
 
             let cSINodeList = CSINodeListBuilder()
 
+        [<AutoOpen>]
         module StorageClass =
             open Pulumi.Kubernetes.Storage.V1
             open Pulumi.Kubernetes.Types.Inputs.Storage.V1
@@ -7789,6 +7964,7 @@ module Storage =
 
             let storageClass = StorageClassBuilder()
 
+        [<AutoOpen>]
         module StorageClassList =
             open Pulumi.Kubernetes.Storage.V1
             open Pulumi.Kubernetes.Types.Inputs.Storage.V1
@@ -7830,6 +8006,7 @@ module Storage =
 
             let storageClassList = StorageClassListBuilder()
 
+        [<AutoOpen>]
         module VolumeAttachment =
             open Pulumi.Kubernetes.Storage.V1
             open Pulumi.Kubernetes.Types.Inputs.Storage.V1
@@ -7871,6 +8048,7 @@ module Storage =
 
             let volumeAttachment = VolumeAttachmentBuilder()
 
+        [<AutoOpen>]
         module VolumeAttachmentList =
             open Pulumi.Kubernetes.Storage.V1
             open Pulumi.Kubernetes.Types.Inputs.Storage.V1
@@ -7913,6 +8091,7 @@ module Storage =
             let volumeAttachmentList = VolumeAttachmentListBuilder()
 
     module V1Alpha1 =
+        [<AutoOpen>]
         module VolumeAttachment =
             open Pulumi.Kubernetes.Storage.V1Alpha1
             open Pulumi.Kubernetes.Types.Inputs.Storage.V1Alpha1
@@ -7954,6 +8133,7 @@ module Storage =
 
             let volumeAttachment = VolumeAttachmentBuilder()
 
+        [<AutoOpen>]
         module VolumeAttachmentList =
             open Pulumi.Kubernetes.Storage.V1Alpha1
             open Pulumi.Kubernetes.Types.Inputs.Storage.V1Alpha1
@@ -7996,6 +8176,7 @@ module Storage =
             let volumeAttachmentList = VolumeAttachmentListBuilder()
 
     module V1Beta1 =
+        [<AutoOpen>]
         module CSIDriver =
             open Pulumi.Kubernetes.Storage.V1Beta1
             open Pulumi.Kubernetes.Types.Inputs.Storage.V1Beta1
@@ -8037,6 +8218,7 @@ module Storage =
 
             let cSIDriver = CSIDriverBuilder()
 
+        [<AutoOpen>]
         module CSIDriverList =
             open Pulumi.Kubernetes.Storage.V1Beta1
             open Pulumi.Kubernetes.Types.Inputs.Storage.V1Beta1
@@ -8078,6 +8260,7 @@ module Storage =
 
             let cSIDriverList = CSIDriverListBuilder()
 
+        [<AutoOpen>]
         module CSINode =
             open Pulumi.Kubernetes.Storage.V1Beta1
             open Pulumi.Kubernetes.Types.Inputs.Storage.V1Beta1
@@ -8119,6 +8302,7 @@ module Storage =
 
             let cSINode = CSINodeBuilder()
 
+        [<AutoOpen>]
         module CSINodeList =
             open Pulumi.Kubernetes.Storage.V1Beta1
             open Pulumi.Kubernetes.Types.Inputs.Storage.V1Beta1
@@ -8160,6 +8344,7 @@ module Storage =
 
             let cSINodeList = CSINodeListBuilder()
 
+        [<AutoOpen>]
         module StorageClass =
             open Pulumi.Kubernetes.Storage.V1Beta1
             open Pulumi.Kubernetes.Types.Inputs.Storage.V1Beta1
@@ -8247,6 +8432,7 @@ module Storage =
 
             let storageClass = StorageClassBuilder()
 
+        [<AutoOpen>]
         module StorageClassList =
             open Pulumi.Kubernetes.Storage.V1Beta1
             open Pulumi.Kubernetes.Types.Inputs.Storage.V1Beta1
@@ -8288,6 +8474,7 @@ module Storage =
 
             let storageClassList = StorageClassListBuilder()
 
+        [<AutoOpen>]
         module VolumeAttachment =
             open Pulumi.Kubernetes.Storage.V1Beta1
             open Pulumi.Kubernetes.Types.Inputs.Storage.V1Beta1
@@ -8329,6 +8516,7 @@ module Storage =
 
             let volumeAttachment = VolumeAttachmentBuilder()
 
+        [<AutoOpen>]
         module VolumeAttachmentList =
             open Pulumi.Kubernetes.Storage.V1Beta1
             open Pulumi.Kubernetes.Types.Inputs.Storage.V1Beta1
