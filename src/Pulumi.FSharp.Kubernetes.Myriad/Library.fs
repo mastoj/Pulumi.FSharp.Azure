@@ -152,6 +152,7 @@ let private createOperationsFor name pType argsType tupleArgs =
         | "integer"
         | "number"
         | "boolean" -> [ SynExpr.CreateIdentString("input"); SynExpr.CreateIdentString("io") ]
+        | "oneOf" -> [ SynExpr.CreateIdentString("inputUnion1Of2"); SynExpr.CreateIdentString("inputUnion2Of2") ]
         | "array" -> [ SynExpr.CreateIdentString("inputList") ]
         | "object" -> [ SynExpr.CreateIdentString("inputMap") ]
         // What to do here?
@@ -159,14 +160,14 @@ let private createOperationsFor name pType argsType tupleArgs =
         | x -> (name, x) ||> sprintf "Missing match case: %s, %s" |> failwith
     
     let setExpr setRight =
-        SynExpr.Set (SynExpr.CreateLongIdent(LongIdentWithDots.CreateString("args." + name)),
+        SynExpr.Set (SynExpr.CreateLongIdent(LongIdentWithDots.CreateString("_args_." + name)),
                      SynExpr.CreateApp(setRight),
                      range.Zero)
         
     let expr setExpr =
         SynExpr.CreateSequential([
             setExpr
-            SynExpr.CreateTuple(tupleArgs (SynExpr.CreateIdentString("cargs")))
+            SynExpr.CreateTuple(tupleArgs (SynExpr.CreateIdentString("_cargs_")))
         ])        
         
     setRights 
@@ -185,7 +186,7 @@ let private createBuilderClass createRunReturn name props =
          SynExpr.CreateIdentString("_args_")]
        
     let runArgs =
-        SynExpr.CreateParenedTuple(tupleArgs (SynExpr.CreateLongIdent(LongIdentWithDots.CreateString ("cargs.Name"))))
+        SynExpr.CreateParenedTuple(tupleArgs (SynExpr.CreateLongIdent(LongIdentWithDots.CreateString ("_cargs_.Name"))))
         
     let argsType =
         name + "Args"
@@ -197,7 +198,7 @@ let private createBuilderClass createRunReturn name props =
     
     let field = RecordFieldName(LongIdentWithDots.CreateString("Name"), true)
     let updates = [(field, SynExpr.CreateIdentString("name") |> Some, None)]
-    let recordUpdate = SynExpr.CreateRecordUpdate(SynExpr.CreateIdentString("cargs"), updates)    
+    let recordUpdate = SynExpr.CreateRecordUpdate(SynExpr.CreateIdentString("_cargs_"), updates)    
     let returnTuple = SynExpr.CreateTuple(tupleArgs (recordUpdate))
     
     SynModuleDecl.CreateType(SynComponentInfoRcd.Create(typeName),
@@ -250,7 +251,7 @@ let private createType (namespaceMap: Map<string, string>) propertiesField (fqTy
                     match p with
                     | "type" -> v.AsString() |> Some // Array type has also "items"
                     | "$ref" -> getComplexType v |> Some
-// TODO:                                                 | "oneOf" -> getOneOfType v |> Some 
+                    | "oneOf" -> "oneOf" |> Some 
                     (*| "description"*)
                     | _ -> None)
                 |> Array.head
@@ -330,6 +331,7 @@ type K8sGenerator() =
 
             let typesToInclude = 
                 [
+//                    "RollingUpdateDaemonSet"
                     // "Deployment"
                     // "DeploymentSpec"
                 ]
@@ -371,8 +373,12 @@ type K8sGenerator() =
                 provider.Resources.JsonValue.Properties()
                 |> Array.Parallel.map (createType namespaceMap "inputProperties")
                 |> Array.filter (fun (_, typeName, _, _, _) -> 
-                    List.contains typeName typesToIgnore |> not && 
-                    typesToInclude |> List.isEmpty || typesToInclude |> List.contains typeName
+                    if List.isEmpty typesToInclude
+                    then
+                        List.contains typeName typesToIgnore |> not
+                    else
+                        List.contains typeName typesToIgnore |> not ||
+                        typesToInclude |> List.contains typeName
                 )
                 |> Array.Parallel.map (moduleWithType (fun name args _ -> createInstance name args))
                 |> Array.groupBy (fst >> fst)
