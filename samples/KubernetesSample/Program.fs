@@ -3,6 +3,7 @@
 open Pulumi.FSharp
 open Pulumi.FSharp.Ops
 open Pulumi.FSharp.Kubernetes.Apps.V1
+open Pulumi.FSharp.Kubernetes.Types.Inputs.Apps.V1
 open Pulumi.Kubernetes.Types.Inputs.Apps.V1
 open Pulumi.Kubernetes.Types.Inputs.Meta.V1
 open Pulumi.Kubernetes.Types.Inputs.Core.V1
@@ -10,6 +11,9 @@ open Pulumi.Kubernetes.Types.Inputs.Core.V1
 // open Pulumi.Kubernetes.Types.Inputs.Apps.V1
 // open Pulumi.Kubernetes.Types.Inputs.Meta.V1
 // open Pulumi.Kubernetes.Types.Inputs.ApiExtensions.V1Beta1
+
+type X = { Y: Y }
+and Y = int
 
 let infra () =
 
@@ -36,11 +40,14 @@ let infra () =
                              ContainerPortArgs
                                (ContainerPortValue = input 80))]))])))))
 
+  
 
   let appDeploy = 
     deployment {
       name "MyDeploy"
-      spec deploySpec
+      spec (deploymentSpec {
+        replicas 1
+      })
     }
     // Pulumi.Kubernetes.Apps.V1.Deployment("nginx",
     //   DeploymentArgs

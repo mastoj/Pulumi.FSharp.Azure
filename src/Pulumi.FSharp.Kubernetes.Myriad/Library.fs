@@ -92,8 +92,8 @@ let private createTuple items withParen =
         SynPatRcd.CreateTuple(items)
     
 let private argsTuple withParen typeName =
-    createTuple [ createPattern "cargs" []
-                  createPatternTyped "args" [] typeName ] withParen
+    createTuple [ createPattern "_cargs_" []
+                  createPatternTyped "_args_" [] typeName ] withParen
     
 let private createRun typeName =
     createMember "Run" [argsTuple true typeName] []
@@ -134,6 +134,10 @@ let private createOperation name typeName hasAttribute =
     
     createOperation' (coName |> toPascalCase) coName snakeCaseName typeName hasAttribute
 
+let private createArgsReturn _ =
+    SynExpr.CreateIdentString("_args_")
+//    createTuple [createPatternTyped "args" [] typeName] 
+
 let private createInstance name args =
     let identifier =
         LongIdentWithDots.CreateString name |>
@@ -165,20 +169,20 @@ let private createOperationsFor name pType argsType tupleArgs =
             SynExpr.CreateTuple(tupleArgs (SynExpr.CreateIdentString("cargs")))
         ])        
         
-    setRights |>
-    List.map (fun sr -> sr, SynExpr.CreateIdentString(name |> toSnakeCase)) |>
-    List.map (setExpr >> expr) |>
-    List.mapi (fun i e -> createOperation name argsType (i = 0) e) |>
-    Array.ofList
+    setRights 
+    |> List.map (fun sr -> sr, SynExpr.CreateIdentString(name |> toSnakeCase)) 
+    |> List.map (setExpr >> expr)
+    |> List.mapi (fun i e -> createOperation name argsType (i = 0) e) 
+    |> Array.ofList
     
-let private createAzureBuilderClass name props =
+let private createBuilderClass createRunReturn name props =
     let typeName =
         name + "Builder" |>
         Ident.CreateLong
         
     let tupleArgs fst =
         [fst
-         SynExpr.CreateIdentString("args")]
+         SynExpr.CreateIdentString("_args_")]
        
     let runArgs =
         SynExpr.CreateParenedTuple(tupleArgs (SynExpr.CreateLongIdent(LongIdentWithDots.CreateString ("cargs.Name"))))
@@ -199,10 +203,9 @@ let private createAzureBuilderClass name props =
     SynModuleDecl.CreateType(SynComponentInfoRcd.Create(typeName),
                              [
                                  implicitCtor ()
-                                 //inheritType "AzureResource"
                                  
                                  createYield (createInstance argsType SynExpr.CreateUnit)
-                                 createRun argsType (createInstance name runArgs)
+                                 createRun argsType (createRunReturn name runArgs argsType)
                                  createOperation' "Name" "name" "name" argsType true returnTuple
                              ] @ operations)
 
@@ -214,46 +217,49 @@ let private createLet name expr =
                 
 #nowarn "25"
 
-let private createType (provider : PulumiProvider.Root) (fqType : string, jValue : JsonValue) =
+let private createType (namespaceMap: Map<string, string>) propertiesField (fqType : string, jValue : JsonValue) =
     let getComplexType (v : JsonValue) =
-        provider.Types.JsonValue.Properties() |>
-        Array.tryFind (fun (t, _) -> ("#/types/" + t) = v.AsString()) |>
-        ignore
+        // provider.Types.JsonValue.Properties() 
+        // |> Array.tryFind (fun (t, _) -> ("#/types/" + t) = v.AsString())
+        // |> ignore
         "complex"
-   
+    
     let [| tProvider; category; resourceType |] = fqType.Split(":")
     let typeName = toPascalCase resourceType
-    let properties = jValue.GetProperty("inputProperties").Properties()
-    
-    let serviceProvider =
-        provider.Language.Csharp.Namespaces.JsonValue.Properties() 
-        |> Array.find (fun (p, _) -> p = category)
-        |> snd 
-        |> (fun jv -> jv.AsString())
+    let properties = jValue.GetProperty(propertiesField).Properties()
+
+    let serviceProvider = namespaceMap.[category]
     
     let ns = sprintf "Pulumi.%s.%s" (toPascalCase tProvider) serviceProvider
 
     let nameAndType (name, jValue : JsonValue) =
-        let tName =
-            match jValue.Properties() |>
-                  Array.tryFind (fun (p, _) -> p = "language") |>
-                  Option.bind (fun (_, v) -> v.Properties() |>
-                                             Array.tryFind (fun (p, _) -> p = "csharp") |>
-                                             Option.map snd) |>
-                  Option.map (fun v -> v.GetProperty("name").AsString()) with
-            | Some name -> name
-            | None      -> name
-        
-        let pType =
-            jValue.Properties() |>
-            Array.choose (fun (p, v) -> match p with
-                                        | "type" -> v.AsString() |> Some // Array type has also "items"
-                                        | "$ref" -> getComplexType v |> Some
-                                        (*| "description"*)
-                                        | _ -> None) |>
-            Array.head
-        
-        (tName, pType)
+        try
+            let tName =
+                match jValue.Properties() |>
+                      Array.tryFind (fun (p, _) -> p = "language") |>
+                      Option.bind (fun (_, v) -> v.Properties() |>
+                                                 Array.tryFind (fun (p, _) -> p = "csharp") |>
+                                                 Option.map snd) |>
+                      Option.map (fun v -> v.GetProperty("name").AsString()) with
+                | Some name -> name
+                | None      -> name
+
+            let pType =
+                jValue.Properties()
+                |> Array.choose (fun (p, v) ->
+                    match p with
+                    | "type" -> v.AsString() |> Some // Array type has also "items"
+                    | "$ref" -> getComplexType v |> Some
+// TODO:                                                 | "oneOf" -> getOneOfType v |> Some 
+                    (*| "description"*)
+                    | _ -> None)
+                |> Array.head
+            
+            (tName, pType)
+        with
+        | ex ->
+            let message = sprintf "Failed to create type for %A: %A" fqType jValue
+            raise (Exception(message, ex))
     
     ns, typeName, properties, nameAndType, serviceProvider
 
@@ -263,14 +269,14 @@ type K8sGenerator() =
         member __.Generate(namespace', _) =
             let provider = PulumiProvider.GetSample()
             
-            let moduleWithType (ns, typeName, properties, nameAndType, (fullServiceProvider: string)) =
+            let moduleWithType createRunReturn (ns, typeName, properties, nameAndType, (fullServiceProvider: string)) =
                 let [|serviceProvider; version|] = fullServiceProvider.Split(".")
                 let moduleName = typeName
                 (serviceProvider, version), (moduleName, [
                     createAutoOpenModule (moduleName) [
                         createOpen ns
                         createOpen (sprintf "Pulumi.Kubernetes.Types.Inputs.%s" fullServiceProvider)
-                        createAzureBuilderClass typeName (properties |> Array.map (nameAndType))
+                        createBuilderClass createRunReturn typeName (properties |> Array.map (nameAndType))
                         createLet (toSnakeCase typeName) (createInstance (typeName + "Builder") SynExpr.CreateUnit)             
                     ]
                 ])
@@ -278,19 +284,99 @@ type K8sGenerator() =
             let concatModules (moduleName: string) modules =
                 createModule moduleName (modules |> List.concat)
 
-            let typesToIgnore = [
-                "ControllerRevision"
-            ]
-
-            let modules =
+            let resourceTypeNames = 
                 provider.Resources.JsonValue.Properties()
-                |> Array.map (createType provider)
+                |> Array.map fst
+                |> List.ofArray
+
+            let typesToIgnore = 
+                [
+                    "ControllerRevision"
+                    "CustomResourceSubresources" // json
+                    "JSONSchemaProps"
+                    "ManagedFieldsEntry"
+                    "RollingUpdateDaemonSet" // OneOf
+                    "RollingUpdateDeployment"
+                    "HTTPGetAction"
+                    "ServicePort"
+                    "TCPSocketAction"
+                    "IngressBackend"
+                    "NetworkPolicyPort"
+                    "PodDisruptionBudgetSpec"
+                    "DeploymentRollback" // Deprecated
+                    "Scale" // Not sure
+                    "ScaleSpec"
+                    "ScaleStatus"
+                    "TokenRequestStatus"
+                    "UserInfo"
+                    "TokenReviewStatus"
+                    "NonResourceRule"
+                    "ResourceRule"
+                    "SubjectAccessReviewStatus"
+                    "APIGroup"
+                    "APIResource"
+                    "APIResourceList"
+                    "APIVersions"
+                    "APIGroupList"
+                    "DeleteOptions"
+                    "GroupVersionForDiscovery"
+                    "Preconditions"
+                    "ServerAddressByClientCIDR"
+                    "WatchEvent"
+                    "SubjectRulesReviewStatus"
+                    "Info" // Unknown namespace?
+                    "Eviction"
+                ]
+
+            let typesToInclude = 
+                [
+                    // "Deployment"
+                    // "DeploymentSpec"
+                ]
+//            let typeModules = []
+                
+            let namespaceMap =
+                provider.Language.Csharp.Namespaces.JsonValue.Properties()
+                |> Array.map (fun (p, jv) -> (p, jv.AsString()))
+                |> Map.ofArray
+
+            let toList i = [i]
+            let typeModules = 
+                provider.Types.JsonValue.Properties()
+                |> Array.filter (fun (n, _) -> resourceTypeNames |> List.contains n |> not)
+                |> Array.Parallel.map (createType namespaceMap "properties")
                 |> Array.filter (fun (_, typeName, _, _, _) -> 
-                    List.contains typeName typesToIgnore |> not
+                    List.contains typeName typesToIgnore |> not &&
+                    typesToInclude |> List.isEmpty || typesToInclude |> List.contains typeName
                     )
-                |> Array.map moduleWithType
+                |> Array.Parallel.map (moduleWithType (fun _ _ argsType -> createArgsReturn argsType))
                 |> Array.groupBy (fst >> fst)
-                |> Array.map (fun (serviceProvider, grouped) ->
+                |> Array.Parallel.map (fun (serviceProvider, grouped) ->
+                    let innerModules =
+                        grouped
+                        |> Array.groupBy (fst >> snd)
+                        |> Array.map (fun (version, groupedModules) ->
+                            let modules = groupedModules |> Array.map (snd >> snd)
+                            concatModules version (modules)                    
+                        )
+                        |> List.ofArray
+                    createModule serviceProvider innerModules)
+                |> List.ofArray
+                |> createModule "Inputs"
+                |> toList
+                |> createModule "Types"
+                |> toList
+
+            let resourceModules =
+                provider.Resources.JsonValue.Properties()
+                |> Array.Parallel.map (createType namespaceMap "inputProperties")
+                |> Array.filter (fun (_, typeName, _, _, _) -> 
+                    List.contains typeName typesToIgnore |> not && 
+                    typesToInclude |> List.isEmpty || typesToInclude |> List.contains typeName
+                )
+                |> Array.Parallel.map (moduleWithType (fun name args _ -> createInstance name args))
+                |> Array.groupBy (fst >> fst)
+                |> Array.Parallel.map (fun (serviceProvider, grouped) ->
                     let innerModules =
                         grouped
                         |> Array.groupBy (fst >> snd)
@@ -309,4 +395,4 @@ type K8sGenerator() =
                 ]
                 |> List.map createOpen
 
-            createNamespace ("Pulumi.FSharp.Kubernetes") (namespacesToOpen @ modules)
+            createNamespace ("Pulumi.FSharp.Kubernetes") (namespacesToOpen @ typeModules @ resourceModules)
