@@ -4,9 +4,11 @@ open Pulumi.FSharp
 open Pulumi.FSharp.Ops
 open Pulumi.FSharp.Kubernetes.Apps.V1
 open Pulumi.FSharp.Kubernetes.Types.Inputs.Apps.V1
+open Pulumi.FSharp.Kubernetes.Types.Inputs.Meta.V1
 open Pulumi.Kubernetes.Types.Inputs.Apps.V1
 open Pulumi.Kubernetes.Types.Inputs.Meta.V1
 open Pulumi.Kubernetes.Types.Inputs.Core.V1
+open Pulumi.FSharp.Kubernetes.Types.Inputs.Core.V1
 // open Pulumi.Kubernetes.Types.Inputs.Core.V1
 // open Pulumi.Kubernetes.Types.Inputs.Apps.V1
 // open Pulumi.Kubernetes.Types.Inputs.Meta.V1
@@ -19,7 +21,7 @@ let infra () =
 
   let appLabels = inputMap ["app", input "nginx" ]
 
-  let deploySpec =
+  let appDeployStd =
     DeploymentSpecArgs
       (Selector = input (LabelSelectorArgs(MatchLabels = appLabels)),
        Replicas = input 1,
@@ -40,40 +42,35 @@ let infra () =
                              ContainerPortArgs
                                (ContainerPortValue = input 80))]))])))))
 
-  
-
-  let appDeploy = 
+  let appDeployCe = 
     deployment {
       name "MyDeploy"
       spec (deploymentSpec {
         replicas 1
+        selector (labelSelector {
+          matchLabels ["app", input "nginx" ]
+        })
+        template (podTemplateSpec {
+          metadata (ObjectMetaArgs(Labels = appLabels))
+          spec (podSpec {
+            containers [
+              input (container {
+                name "nginx"
+                image "nginx"
+                ports [
+                  input (containerPort {
+                    containerPortValue 80
+                  })
+                ]
+              })
+            ]
+          })
+        })
       })
     }
-    // Pulumi.Kubernetes.Apps.V1.Deployment("nginx",
-    //   DeploymentArgs
-    //     (Spec = input (
-      // DeploymentSpecArgs
-      //     (Selector = input (LabelSelectorArgs(MatchLabels = appLabels)),
-      //      Replicas = input 1,
-      //      Template = input (
-      //        PodTemplateSpecArgs
-      //         (Metadata = input (ObjectMetaArgs(Labels = appLabels)),
-      //          Spec = input (
-      //             PodSpecArgs
-      //               (Containers = 
-      //                 inputList [
-      //                   input (
-      //                     ContainerArgs
-      //                       (Name = input "nginx",
-      //                        Image = input "nginx",
-      //                        Ports = 
-      //                         inputList [
-      //                           input (
-      //                            ContainerPortArgs
-      //                              (ContainerPortValue = input 80))]))]))))))))
 
   let name = 
-    appDeploy.Metadata
+    appDeployCe.Metadata
     |> Outputs.apply(fun (metadata) -> metadata.Name)
   dict [("name", name :> obj)]
 
