@@ -296,14 +296,6 @@ type K8sGenerator() =
                     "CustomResourceSubresources" // json
                     "JSONSchemaProps"
                     "ManagedFieldsEntry"
-                    "RollingUpdateDaemonSet" // OneOf
-                    "RollingUpdateDeployment"
-                    "HTTPGetAction"
-                    "ServicePort"
-                    "TCPSocketAction"
-                    "IngressBackend"
-                    "NetworkPolicyPort"
-                    "PodDisruptionBudgetSpec"
                     "DeploymentRollback" // Deprecated
                     "Scale" // Not sure
                     "ScaleSpec"
@@ -332,8 +324,8 @@ type K8sGenerator() =
             let typesToInclude = 
                 [
 //                    "RollingUpdateDaemonSet"
-                    // "Deployment"
-                    // "DeploymentSpec"
+                    "Deployment"
+                    "DeploymentSpec"
                 ]
 //            let typeModules = []
                 
@@ -349,7 +341,7 @@ type K8sGenerator() =
                 |> Array.Parallel.map (createType namespaceMap "properties")
                 |> Array.filter (fun (_, typeName, _, _, _) -> 
                     List.contains typeName typesToIgnore |> not &&
-                    typesToInclude |> List.isEmpty || typesToInclude |> List.contains typeName
+                    (typesToInclude |> List.isEmpty || typesToInclude |> List.contains typeName)
                     )
                 |> Array.Parallel.map (moduleWithType (fun _ _ argsType -> createArgsReturn argsType))
                 |> Array.groupBy (fst >> fst)

@@ -9,6 +9,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Modified.fs" />
+    <Compile Include="Nested.fs" />
     <Compile Include="Program.fs" />
   </ItemGroup>
   <ItemGroup>

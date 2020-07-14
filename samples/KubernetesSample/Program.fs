@@ -2,13 +2,13 @@
 
 open Pulumi.FSharp
 open Pulumi.FSharp.Ops
-open Pulumi.FSharp.Kubernetes.Apps.V1
-open Pulumi.FSharp.Kubernetes.Types.Inputs.Apps.V1
-open Pulumi.FSharp.Kubernetes.Types.Inputs.Meta.V1
+open Modified.Apps.V1
+open Modified.Types.Inputs.Apps.V1
+// open Pulumi.FSharp.Kubernetes.Types.Inputs.Meta.V1
 open Pulumi.Kubernetes.Types.Inputs.Apps.V1
 open Pulumi.Kubernetes.Types.Inputs.Meta.V1
 open Pulumi.Kubernetes.Types.Inputs.Core.V1
-open Pulumi.FSharp.Kubernetes.Types.Inputs.Core.V1
+//open Pulumi.FSharp.Kubernetes.Types.Inputs.Core.V1
 // open Pulumi.Kubernetes.Types.Inputs.Core.V1
 // open Pulumi.Kubernetes.Types.Inputs.Apps.V1
 // open Pulumi.Kubernetes.Types.Inputs.Meta.V1
@@ -45,28 +45,31 @@ let infra () =
   let appDeployCe = 
     deployment {
       name "MyDeploy"
-      spec (deploymentSpec {
+      yield deploymentSpec {
         replicas 1
-        selector (labelSelector {
-          matchLabels ["app", input "nginx" ]
-        })
-        template (podTemplateSpec {
-          metadata (ObjectMetaArgs(Labels = appLabels))
-          spec (podSpec {
-            containers [
-              input (container {
-                name "nginx"
-                image "nginx"
-                ports [
-                  input (containerPort {
-                    containerPortValue 80
-                  })
-                ]
-              })
-            ]
-          })
-        })
-      })
+      }
+      // deploymentSpec {
+      //   replicas 1
+      //   selector (labelSelector {
+      //     matchLabels ["app", input "nginx" ]
+      //   })
+      //   template (podTemplateSpec {
+      //     metadata (ObjectMetaArgs(Labels = appLabels))
+      //     spec (podSpec {
+      //       containers [
+      //         input (container {
+      //           name "nginx"
+      //           image "nginx"
+      //           ports [
+      //             input (containerPort {
+      //               containerPortValue 80
+      //             })
+      //           ]
+      //         })
+      //       ]
+      //     })
+      //   })
+      // }
     }
 
   let name = 
